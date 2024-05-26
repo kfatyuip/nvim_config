@@ -11,6 +11,7 @@ Plug('MunifTanjim/nui.nvim')
 Plug('nvim-lualine/lualine.nvim')
 Plug('nvim-tree/nvim-web-devicons')
 Plug('nvim-neo-tree/neo-tree.nvim', {['branch'] = 'v3.x', ['requires'] = {'nvim-lua/plenary.nvim', 'MunifTanjim/nui.nvim'}})
+Plug('skywind3000/asyncrun.vim')
 
 vim.call('plug#end')
 

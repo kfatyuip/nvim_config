@@ -3,6 +3,7 @@ local map = vim.keymap.set
 vim.opt["tabstop"] = 4
 vim.opt["shiftwidth"] = 4
 
+vim.opt.ignorecase = true
 vim.wo.number = true
 
 local builtin = require('telescope.builtin')
