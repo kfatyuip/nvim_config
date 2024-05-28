@@ -15,6 +15,7 @@ Plug('skywind3000/asyncrun.vim')
 Plug('nvim-tree/nvim-web-devicons')
 Plug('ryanoasis/vim-devicons')
 Plug('akinsho/bufferline.nvim', {['tag']= '*'})
+Plug('shellRaining/hlchunk.nvim', {['event'] = {'BufReadPre','BufNewFile'}})
 
 vim.call('plug#end')
 
@@ -28,3 +29,12 @@ require('lualine').setup {
 }
 
 require("bufferline").setup{}
+
+require('hlchunk').setup({
+    chunk = {
+        enable = true,
+    },
+    indent = {
+        enable = true
+    }
+})
