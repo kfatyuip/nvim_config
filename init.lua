@@ -31,10 +31,16 @@ require('lualine').setup {
 require("bufferline").setup{}
 
 require('hlchunk').setup({
-    chunk = {
-        enable = true,
-    },
-    indent = {
-        enable = true
-    }
+  chunk = {
+    enable = true,
+  },
+  indent = {
+    enable = true
+  }
+})
+
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    vim.cmd("Neotree")
+  end,
 })
