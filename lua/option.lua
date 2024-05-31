@@ -3,6 +3,7 @@ local map = vim.keymap.set
 vim.opt["tabstop"] = 4
 vim.opt["shiftwidth"] = 4
 
+vim.opt.guifont = "JetBrainsMono Nerd Font:h10"
 vim.opt.termguicolors = true
 
 vim.opt.ignorecase = true
