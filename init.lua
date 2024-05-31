@@ -47,6 +47,7 @@ require('neo-tree').setup({
 })
 
 vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
+vim.cmd([[nnoremap \g :Neotree float git_status<cr>]])
 
 require('lualine').setup {
 	options = { theme = 'horizon' }
