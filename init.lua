@@ -30,26 +30,6 @@ require('neo-tree').setup({
 	window = {
 		position = "left",
 	},
-	default_component_config = {
-		name = {
-			use_git_status_colors = true
-		},
-		git_status = {
-			symbols = {
-				-- Change type
-				added     = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
-				modified  = "", -- or "", but this is redundant info if you use git_status_colors on the name
-				deleted   = "✖", -- this can only be used in the git_status source
-				renamed   = "󰁕", -- this can only be used in the git_status source
-				-- Status type
-				untracked = "",
-				ignored   = "",
-				unstaged  = "󰄱",
-				staged    = "",
-				conflict  = "",
-			}
-		}
-	},
 	git_status = {
 		window = {
 			position = "float",
@@ -69,11 +49,11 @@ require('neo-tree').setup({
 vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
 vim.cmd([[nnoremap \g :Neotree float git_status<cr>]])
 
-require('lualine').setup {
-	options = { theme = 'horizon' }
-}
+require('lualine').setup({
+	options = { theme = 'tokyonight' }
+})
 
-require("bufferline").setup {}
+require("bufferline").setup()
 
 require('hlchunk').setup({
 	chunk = {
