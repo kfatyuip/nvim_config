@@ -1,4 +1,5 @@
 local vim = vim
+local map = vim.keymap.set
 local Plug = vim.fn['plug#']
 
 vim.call('plug#begin')
@@ -17,6 +18,7 @@ Plug('nvim-tree/nvim-web-devicons')
 Plug('ryanoasis/vim-devicons')
 Plug('akinsho/bufferline.nvim', { ['tag'] = '*' })
 Plug('shellRaining/hlchunk.nvim', { ['event'] = { 'BufReadPre', 'BufNewFile' } })
+Plug('liuchengxu/vista.vim')
 
 vim.call('plug#end')
 
@@ -29,7 +31,7 @@ require('neo-tree').setup({
 	enable_git_status = true,
 	window = {
 		position = "left",
-	},
+},
 	git_status = {
 		window = {
 			position = "float",
@@ -46,8 +48,8 @@ require('neo-tree').setup({
 	}
 })
 
-vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
-vim.cmd([[nnoremap \g :Neotree float git_status<cr>]])
+map('n', '<leader', ':Neotree reveal<CR>', {})
+map('n', '<leader>g', ':Neotree float git_status<CR>', {})
 
 require('lualine').setup({
 	options = { theme = 'tokyonight' }
@@ -63,3 +65,5 @@ require('hlchunk').setup({
 		enable = true
 	}
 })
+
+map('n', '<leader>l', ':Vista<CR>')
