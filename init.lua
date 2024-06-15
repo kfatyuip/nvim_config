@@ -1,5 +1,4 @@
 local vim = vim
-local map = vim.keymap.set
 local Plug = vim.fn['plug#']
 
 vim.call('plug#begin')
@@ -22,48 +21,10 @@ Plug('liuchengxu/vista.vim')
 
 vim.call('plug#end')
 
-require('options/cocnvim')
-require('option')
-
-vim.cmd [[colorscheme tokyonight-storm]]
-
-require('neo-tree').setup({
-	enable_git_status = true,
-	window = {
-		position = "left",
-},
-	git_status = {
-		window = {
-			position = "float",
-			mappings = {
-				["A"]  = "git_add_all",
-				["gu"] = "git_unstage_file",
-				["ga"] = "git_add_file",
-				["gr"] = "git_revert_file",
-				["gc"] = "git_commit",
-				["gp"] = "git_push",
-				["gg"] = "git_commit_and_push",
-			}
-		}
-	}
-})
-
-map('n', '<leader', ':Neotree reveal<CR>', {})
-map('n', '<leader>g', ':Neotree float git_status<CR>', {})
-
-require('lualine').setup({
-	options = { theme = 'tokyonight' }
-})
-
-require("bufferline").setup()
-
-require('hlchunk').setup({
-	chunk = {
-		enable = true,
-	},
-	indent = {
-		enable = true
-	}
-})
-
-map('n', '<leader>l', ':Vista<CR>')
+require('options')
+require('keymaps')
+require('config.cocnvim')
+require('plugins.bufferline')
+require('plugins.hlchunk')
+require('plugins.lualine')
+require('plugins.neotree')
