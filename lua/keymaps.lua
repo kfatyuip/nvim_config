@@ -1,13 +1,9 @@
 local map = vim.keymap.set
 
-vim.opt["tabstop"] = 4
-vim.opt["shiftwidth"] = 4
+map('n', '<leader><leader>', ':Neotree reveal<CR>', {})
+map('n', '<leader>g', ':Neotree float git_status<CR>', {})
 
-vim.opt.guifont = "JetBrainsMono Nerd Font:h10"
-vim.opt.termguicolors = true
-
-vim.opt.ignorecase = true
-vim.wo.number = true
+map('n', '<leader>l', ':Vista<CR>')
 
 local builtin = require('telescope.builtin')
 map('n', '<leader>ff', builtin.find_files, {})
@@ -16,6 +12,5 @@ map('n', '<leader>fb', builtin.buffers, {})
 map('n', '<leader>fh', builtin.help_tags, {})
 map('n', '<leader>fj', builtin.jumplist, {})
 
-local bufferline = require('bufferline')
 map('n', 'gb', ':BufferLinePick<CR>', {})
 map('n', 'gD', ':BufferLinePickClose<CR>', {})
