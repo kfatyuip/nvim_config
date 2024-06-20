@@ -14,3 +14,5 @@ map('n', '<leader>fj', builtin.jumplist, {})
 
 map('n', 'gb', ':BufferLinePick<CR>', {})
 map('n', 'gD', ':BufferLinePickClose<CR>', {})
+
+map('n', '<leader>co', ':cd ~/.config/nvim<CR>', {})
