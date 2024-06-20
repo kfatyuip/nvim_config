@@ -6,7 +6,15 @@ vim.call('plug#begin')
 Plug('neoclide/coc.nvim', { ['branch'] = 'master', ['do'] = 'npm ci' })
 Plug('nvim-lua/plenary.nvim')
 Plug('nvim-telescope/telescope.nvim', { ['tag'] = '0.1.6' })
-Plug('folke/tokyonight.nvim')
+Plug('folke/tokyonight.nvim', {
+	['opts'] = {
+		['transparent'] = true,
+		['styles'] = {
+			['sidebars'] = 'transparent',
+			['floats'] = 'transparent'
+		}
+	}
+})
 Plug('MunifTanjim/nui.nvim')
 Plug('nvim-lualine/lualine.nvim')
 Plug('nvim-tree/nvim-web-devicons')
