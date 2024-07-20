@@ -20,34 +20,65 @@ map("n", "<leader>fm", function()
     require("conform").format({ lsp_fallback = true })
 end, { desc = "format files" })
 
-local builtin = require("telescope.builtin")
-vim.keymap.set(
+map(
     "n",
-    "<leader>ff",
-    builtin.find_files,
-    { desc = "telescope find files" }
+    "<leader>fw",
+    "<cmd>Telescope live_grep<CR>",
+    { desc = "telescope live grep" }
 )
-vim.keymap.set(
-    "n",
-    "<leader>fg",
-    builtin.live_grep,
-    { desc = "telescope live_grep" }
-)
-vim.keymap.set(
+map(
     "n",
     "<leader>fb",
-    builtin.buffers,
-    { desc = "telescope buffers" }
+    "<cmd>Telescope buffers<CR>",
+    { desc = "telescope find buffers" }
 )
-vim.keymap.set(
+map(
     "n",
     "<leader>fh",
-    builtin.help_tags,
-    { desc = "telescope help_tags" }
+    "<cmd>Telescope help_tags<CR>",
+    { desc = "telescope help page" }
+)
+map(
+    "n",
+    "<leader>ma",
+    "<cmd>Telescope marks<CR>",
+    { desc = "telescope find marks" }
+)
+map(
+    "n",
+    "<leader>fo",
+    "<cmd>Telescope oldfiles<CR>",
+    { desc = "telescope find oldfiles" }
+)
+map(
+    "n",
+    "<leader>fz",
+    "<cmd>Telescope current_buffer_fuzzy_find<CR>",
+    { desc = "telescope find in current buffer" }
+)
+map(
+    "n",
+    "<leader>cm",
+    "<cmd>Telescope git_commits<CR>",
+    { desc = "telescope git commits" }
+)
+map(
+    "n",
+    "<leader>st",
+    "<cmd>Telescope git_status<CR>",
+    { desc = "telescope git status" }
+)
+map(
+    "n",
+    "<leader>ff",
+    "<cmd>Telescope find_files<cr>",
+    { desc = "telescope find files" }
 )
 
 map("n", "<leader>/", "gcc", { desc = "comment toggle", remap = true })
 map("v", "<leader>/", "gc", { desc = "comment toggle", remap = true })
+
+map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "code action" })
 
 map(
     "n",
