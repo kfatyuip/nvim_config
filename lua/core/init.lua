@@ -67,25 +67,48 @@ require("lazy").setup({
             }
         end,
     },
-    "neovim/nvim-lspconfig",
-    "hrsh7th/cmp-nvim-lsp",
-    "hrsh7th/cmp-buffer",
-    "hrsh7th/cmp-path",
-    "hrsh7th/cmp-cmdline",
     {
         "hrsh7th/nvim-cmp",
+        dependencies = {
+            "neovim/nvim-lspconfig",
+            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-buffer",
+            "hrsh7th/cmp-path",
+            "hrsh7th/cmp-cmdline",
+        },
         config = function()
             require("plugins.cmp")
         end,
     },
     {
         "nvim-lualine/lualine.nvim",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
+        dependencies = {
+            "nvim-tree/nvim-web-devicons",
+        },
         config = function()
             require("lualine").setup({
                 options = {
                     theme = "tokyonight",
                 },
+                sections = {
+                    lualine_c = {
+                        function()
+                            return require("lsp-progress").progress()
+                        end,
+                    },
+                },
+            })
+        end,
+    },
+    {
+        "linrongbin16/lsp-progress.nvim",
+        config = function()
+            require("lsp-progress").setup()
+            vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
+            vim.api.nvim_create_autocmd("User", {
+                group = "lualine_augroup",
+                pattern = "LspProgressStatusUpdated",
+                callback = require("lualine").refresh,
             })
         end,
     },
@@ -128,7 +151,12 @@ require("lazy").setup({
         },
         config = true,
     },
-
+    {
+        "j-hui/fidget.nvim",
+        config = function()
+            require("fidget").setup()
+        end,
+    },
     "folke/tokyonight.nvim",
 })
 
