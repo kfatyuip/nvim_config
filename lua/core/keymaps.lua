@@ -46,4 +46,12 @@ vim.keymap.set(
     { desc = "telescope help_tags" }
 )
 
--- map("n", "<leader>ft", require("telescope").extensions.flutter.commands)
+map("n", "<leader>/", "gcc", { desc = "comment toggle", remap = true })
+map("v", "<leader>/", "gc", { desc = "comment toggle", remap = true })
+
+map(
+    "n",
+    "<leader>ft",
+    require("telescope").extensions.flutter.commands,
+    { desc = "open flutter tools" }
+)
