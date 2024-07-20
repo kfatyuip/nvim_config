@@ -94,6 +94,13 @@ require("lazy").setup({
     },
     config = true,
   },
+  {
+    "akinsho/bufferline.nvim",
+    dependencies = "nvim-tree/nvim-web-devicons",
+    config = function()
+      require("bufferline").setup()
+    end,
+  },
   "j-hui/fidget.nvim",
   "folke/tokyonight.nvim",
 })

@@ -75,6 +75,10 @@ map(
   { desc = "telescope find files" }
 )
 
+map("n", "<Tab>", "<cmd>bnext<CR>", { desc = "move to next buffer" })
+map("n", "<S-Tab>", "<cmd>bprevious<CR>", { desc = "move to previous buffer" })
+map("n", "<leader>x", "<cmd>bd<CR>", { desc = "delete buffer" })
+
 map("n", "<leader>/", "gcc", { desc = "comment toggle", remap = true })
 map("v", "<leader>/", "gc", { desc = "comment toggle", remap = true })
 
