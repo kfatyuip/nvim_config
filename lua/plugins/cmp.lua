@@ -1,6 +1,9 @@
 require("mason").setup()
 local cmp = require("cmp")
 
+require("luasnip").setup()
+require("luasnip.loaders.from_vscode").lazy_load()
+
 local servers =
   { "lua_ls", "clangd", "taplo", "pyright", "zk", "jsonls", "html", "eslint" }
 
@@ -66,6 +69,11 @@ lspconfig.rust_analyzer.setup({
 })
 
 cmp.setup({
+  snippet = {
+    expand = function(args)
+      require("luasnip").lsp_expand(args.body)
+    end,
+  },
   mapping = cmp.mapping.preset.insert({
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
@@ -92,6 +100,7 @@ cmp.setup({
     { name = "nvim_lsp" },
     { name = "buffer" },
     { name = "path" },
+    { name = "luasnip" },
   }),
 })
 
