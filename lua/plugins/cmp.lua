@@ -4,9 +4,6 @@ local cmp = require("cmp")
 require("luasnip").setup()
 require("luasnip.loaders.from_vscode").lazy_load()
 
-local servers =
-  { "lua_ls", "clangd", "taplo", "pyright", "zk", "jsonls", "html", "eslint" }
-
 local on_attach = function(client, bufnr)
   local opts = { noremap = true, silent = true }
   vim.api.nvim_buf_set_keymap(
@@ -30,43 +27,6 @@ local on_init = function(client)
     workspace_folders = true,
   }
 end
-
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-local lspconfig = require("lspconfig")
-for _, lsp in pairs(servers) do
-  lspconfig[lsp].setup({
-    on_attach = on_attach,
-    on_init = on_init,
-    capabilities = capabilities,
-  })
-end
-
-lspconfig.rust_analyzer.setup({
-  on_attach = on_attach,
-  on_init = on_init,
-  capabilities = capabilities,
-
-  settings = {
-    ["rust-analyzer"] = {
-      diagostics = {
-        enable = true,
-      },
-      checkOnSave = {
-        command = "clippy",
-      },
-      cargo = {
-        allFeatures = true,
-        loadOutDirsFromCheck = true,
-      },
-      server = {
-        extraEnv = {
-          RUST_SRC_PATH = "/usr/lib/rustlib/src/rust/library",
-        },
-      },
-    },
-  },
-})
 
 cmp.setup({
   snippet = {
