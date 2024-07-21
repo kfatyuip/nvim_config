@@ -1,3 +1,73 @@
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+local servers =
+  { "lua_ls", "clangd", "taplo", "pyright", "zk", "jsonls", "html", "eslint" }
+
+local on_attach = function(client, bufnr)
+  local opts = { noremap = true, silent = true }
+  vim.api.nvim_buf_set_keymap(
+    bufnr,
+    "n",
+    "gd",
+    "<Cmd>lua vim.lsp.buf.definition()<CR>",
+    opts
+  )
+  vim.api.nvim_buf_set_keymap(
+    bufnr,
+    "n",
+    "gD",
+    "<Cmd>Telescope lsp_definitions<CR>",
+    opts
+  )
+end
+
+local on_init = function(client)
+  client.server_capabilities.workspace = {
+    workspace_folders = true,
+  }
+end
+
+local lspconfig = require("lspconfig")
+for _, lsp in pairs(servers) do
+  lspconfig[lsp].setup({
+    on_attach = on_attach,
+    on_init = on_init,
+    capabilities = capabilities,
+  })
+end
+
+lspconfig.rust_analyzer.setup({
+  on_attach = on_attach,
+  on_init = on_init,
+  capabilities = capabilities,
+
+  settings = {
+    ["rust-analyzer"] = {
+      diagostics = {
+        enable = true,
+      },
+      checkOnSave = {
+        command = "clippy",
+      },
+      cargo = {
+        buildScripts = {
+          enable = true,
+        },
+        allFeatures = true,
+        loadOutDirsFromCheck = true,
+      },
+      procMacro = {
+        enable = true,
+      },
+      server = {
+        extraEnv = {
+          RUST_SRC_PATH = "/usr/lib/rustlib/src/rust/library",
+        },
+      },
+    },
+  },
+})
+
 require("fidget").setup()
 require("conform").setup({
   formatters_by_ft = {
