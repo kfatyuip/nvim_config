@@ -83,6 +83,12 @@ map("n", "<leader>/", "gcc", { desc = "comment toggle", remap = true })
 map("v", "<leader>/", "gc", { desc = "comment toggle", remap = true })
 
 map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "code action" })
+map(
+  "n",
+  "<leader>ds",
+  vim.diagnostic.setloclist,
+  { desc = "lsp diagnostic loclist" }
+)
 
 map(
   "n",
