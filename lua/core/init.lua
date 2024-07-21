@@ -32,6 +32,15 @@ require("lazy").setup({
   {
     "nvim-telescope/telescope.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      if vim.g.neovide then
+        require("telescope").setup({
+          defaults = {
+            winblend = 100,
+          },
+        })
+      end
+    end,
   },
   {
     "nvim-tree/nvim-tree.lua",
@@ -101,8 +110,17 @@ require("lazy").setup({
       require("bufferline").setup()
     end,
   },
+  {
+    "folke/tokyonight.nvim",
+    style = "storm",
+    terminal_colors = true,
+    transparent = true,
+    styles = {
+      sidebars = "transparent",
+      floats = "transparent",
+    },
+  },
   "j-hui/fidget.nvim",
-  "folke/tokyonight.nvim",
 })
 
 require("core.keymaps")
@@ -113,3 +131,10 @@ require("plugins.cmp")
 require("plugins.statusline")
 
 vim.cmd([[colorscheme tokyonight]])
+
+if vim.g.neovide then
+  vim.g.neovide_transparency = 0.8
+  vim.g.transparency = 0.8
+  vim.g.neovide_floating_blur = 0.8
+  vim.g.neovide_window_blurred = true
+end
