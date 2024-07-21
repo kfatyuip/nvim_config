@@ -120,6 +120,7 @@ require("lazy").setup({
       floats = "transparent",
     },
   },
+  "liuchengxu/vista.vim",
   "j-hui/fidget.nvim",
 })
 
