@@ -6,13 +6,13 @@ map("i", "jk", "<ESC>")
 map(
   "n",
   "<C-n>",
-  "<cmd>NvimTreeToggle<CR>",
+  "<cmd>NvimTreeToggle<cr>",
   { desc = "nvimtree toggle window" }
 )
 map(
   "n",
   "<leader>e",
-  "<cmd>NvimTreeFocus<CR>",
+  "<cmd>NvimTreeFocus<cr>",
   { desc = "nvimtree focus window" }
 )
 
@@ -23,49 +23,49 @@ end, { desc = "format files" })
 map(
   "n",
   "<leader>fw",
-  "<cmd>Telescope live_grep<CR>",
+  "<cmd>Telescope live_grep<cr>",
   { desc = "telescope live grep" }
 )
 map(
   "n",
   "<leader>fb",
-  "<cmd>Telescope buffers<CR>",
+  "<cmd>Telescope buffers<cr>",
   { desc = "telescope find buffers" }
 )
 map(
   "n",
   "<leader>fh",
-  "<cmd>Telescope help_tags<CR>",
+  "<cmd>Telescope help_tags<cr>",
   { desc = "telescope help page" }
 )
 map(
   "n",
   "<leader>ma",
-  "<cmd>Telescope marks<CR>",
+  "<cmd>Telescope marks<cr>",
   { desc = "telescope find marks" }
 )
 map(
   "n",
   "<leader>fo",
-  "<cmd>Telescope oldfiles<CR>",
+  "<cmd>Telescope oldfiles<cr>",
   { desc = "telescope find oldfiles" }
 )
 map(
   "n",
   "<leader>fz",
-  "<cmd>Telescope current_buffer_fuzzy_find<CR>",
+  "<cmd>Telescope current_buffer_fuzzy_find<cr>",
   { desc = "telescope find in current buffer" }
 )
 map(
   "n",
   "<leader>cm",
-  "<cmd>Telescope git_commits<CR>",
+  "<cmd>Telescope git_commits<cr>",
   { desc = "telescope git commits" }
 )
 map(
   "n",
   "<leader>st",
-  "<cmd>Telescope git_status<CR>",
+  "<cmd>Telescope git_status<cr>",
   { desc = "telescope git status" }
 )
 map(
@@ -75,9 +75,19 @@ map(
   { desc = "telescope find files" }
 )
 
-map("n", "<Tab>", "<cmd>BufferLineCycleNext<CR>", { desc = "move to next buffer" })
-map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<CR>", { desc = "move to previous buffer" })
-map("n", "<leader>x", "<cmd>bd<CR>", { desc = "delete buffer" })
+map(
+  "n",
+  "<Tab>",
+  "<cmd>BufferLineCycleNext<cr>",
+  { desc = "move to next buffer" }
+)
+map(
+  "n",
+  "<S-Tab>",
+  "<cmd>BufferLineCyclePrev<cr>",
+  { desc = "move to previous buffer" }
+)
+map("n", "<leader>x", "<cmd>bd<cr>", { desc = "delete buffer" })
 
 map("n", "<leader>/", "gcc", { desc = "comment toggle", remap = true })
 map("v", "<leader>/", "gc", { desc = "comment toggle", remap = true })
@@ -87,6 +97,12 @@ map(
   "n",
   "<leader>ds",
   vim.diagnostic.setloclist,
+  { desc = "lsp diagnostic loclist" }
+)
+map(
+  "n",
+  "<leader>dS",
+  "<cmd>Telescope diagnostics<cr>",
   { desc = "lsp diagnostic loclist" }
 )
 
