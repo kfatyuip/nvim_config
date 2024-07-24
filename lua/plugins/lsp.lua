@@ -9,14 +9,28 @@ local on_attach = function(client, bufnr)
     bufnr,
     "n",
     "gd",
-    "<Cmd>lua vim.lsp.buf.definition()<CR>",
+    "<cmd>lua vim.lsp.buf.definition()<cr>",
     opts
   )
   vim.api.nvim_buf_set_keymap(
     bufnr,
     "n",
     "gD",
-    "<Cmd>Telescope lsp_definitions<CR>",
+    "<cmd>Telescope lsp_definitions<cr>",
+    opts
+  )
+  vim.api.nvim_buf_set_keymap(
+    bufnr,
+    "n",
+    "gr",
+    "<cmd>lua vim.lsp.buf.references()<cr>",
+    opts
+  )
+  vim.api.nvim_buf_set_keymap(
+    bufnr,
+    "n",
+    "gR",
+    "<cmd>Telescope lsp_references<cr>",
     opts
   )
 end
