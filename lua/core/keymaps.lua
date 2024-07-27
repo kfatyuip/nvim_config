@@ -106,6 +106,8 @@ map(
   { desc = "lsp diagnostic loclist" }
 )
 
+map("n", "<leader>fs", "<cmd>Vista<cr>", {desc = "focus Vista"})
+
 map(
   "n",
   "<leader>ft",
