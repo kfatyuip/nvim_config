@@ -1,7 +1,16 @@
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-local servers =
-  { "lua_ls", "clangd", "taplo", "pyright", "zk", "jsonls", "html", "eslint" }
+local servers = {
+  "lua_ls",
+  "clangd",
+  "taplo",
+  "pyright",
+  "zk",
+  "jsonls",
+  "html",
+  "eslint",
+  "mesonlsp",
+}
 
 local on_attach = function(client, bufnr)
   local opts = { noremap = true, silent = true }
