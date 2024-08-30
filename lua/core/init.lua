@@ -58,6 +58,7 @@ require("lazy").setup({
         "jsonls",
         "html",
         "eslint",
+        "mesonlsp",
         "rust-analyzer",
       }
     end,
