@@ -32,10 +32,15 @@ map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "lsp diagnostic locli
 map("n", "<leader>dS", "<cmd>Telescope diagnostics<cr>", { desc = "lsp diagnostic loclist" })
 
 local function _vista()
-  if vim.bo.filetype == "dart" then
-    vim.cmd("Vista nvim_lsp")
+  local _buf = vim.api.nvim_buf_get_option(0, "filetype")
+   if _buf == "vista" or _buf == "vista_kind" then
+    vim.cmd("Vista!!")
   else
-    vim.cmd("Vista")
+    if vim.bo.filetype == "dart" then
+      vim.cmd("Vista nvim_lsp")
+    else
+      vim.cmd("Vista")
+    end
   end
 end
 
