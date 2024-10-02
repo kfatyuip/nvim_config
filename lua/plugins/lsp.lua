@@ -14,34 +14,10 @@ local servers = {
 
 local on_attach = function(client, bufnr)
   local opts = { noremap = true, silent = true }
-  vim.api.nvim_buf_set_keymap(
-    bufnr,
-    "n",
-    "gd",
-    "<cmd>lua vim.lsp.buf.definition()<cr>",
-    opts
-  )
-  vim.api.nvim_buf_set_keymap(
-    bufnr,
-    "n",
-    "gD",
-    "<cmd>Telescope lsp_definitions<cr>",
-    opts
-  )
-  vim.api.nvim_buf_set_keymap(
-    bufnr,
-    "n",
-    "gr",
-    "<cmd>lua vim.lsp.buf.references()<cr>",
-    opts
-  )
-  vim.api.nvim_buf_set_keymap(
-    bufnr,
-    "n",
-    "gR",
-    "<cmd>Telescope lsp_references<cr>",
-    opts
-  )
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>Telescope lsp_definitions<cr>", opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "gR", "<cmd>Telescope lsp_references<cr>", opts)
 end
 
 local on_init = function(client)
