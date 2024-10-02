@@ -5,5 +5,5 @@ indent_type = "Spaces"  # or "Tabs"
 indent_width = 2        # number of spaces to use for indentation
 
 # Line settings
-column_width = 80       # maximum line width
+column_width = 120       # maximum line width
 line_endings = "Unix"   # or "Windows"
