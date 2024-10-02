@@ -121,6 +121,30 @@ require("lazy").setup({
       floats = "transparent",
     },
   },
+  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+  {
+    "shellRaining/hlchunk.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require("hlchunk").setup({
+        chunk = {
+          enable = true,
+          use_treesitter = true,
+          chars = {
+            horizontal_line = "─",
+            vertical_line = "│",
+            left_top = "╭",
+            left_bottom = "╰",
+            right_arrow = ">",
+          },
+          style = "#806d9c",
+        },
+        indent = {
+          enable = true,
+        },
+      })
+    end,
+  },
   "liuchengxu/vista.vim",
   "j-hui/fidget.nvim",
 })
