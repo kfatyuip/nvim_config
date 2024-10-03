@@ -20,6 +20,8 @@ map("n", "<leader>cm", "<cmd>Telescope git_commits<cr>", { desc = "telescope git
 map("n", "<leader>st", "<cmd>Telescope git_status<cr>", { desc = "telescope git status" })
 map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "telescope find files" })
 
+map("n", "<leader>cl", "<cmd>BufferLineCloseLeft<cr>", { desc = "close left buffers" })
+map("n", "<leader>cr", "<cmd>BufferLineCloseRight<cr>", { desc = "close right buffers" })
 map("n", "<Tab>", "<cmd>BufferLineCycleNext<cr>", { desc = "move to next buffer" })
 map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", { desc = "move to previous buffer" })
 map("n", "<leader>x", "<cmd>bd<cr>", { desc = "delete buffer" })
@@ -33,7 +35,7 @@ map("n", "<leader>dS", "<cmd>Telescope diagnostics<cr>", { desc = "lsp diagnosti
 
 local function _vista()
   local _buf = vim.api.nvim_buf_get_option(0, "filetype")
-   if _buf == "vista" or _buf == "vista_kind" then
+  if _buf == "vista" or _buf == "vista_kind" then
     vim.cmd("Vista!!")
   else
     if vim.bo.filetype == "dart" then
