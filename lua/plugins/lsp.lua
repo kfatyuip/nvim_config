@@ -73,6 +73,7 @@ require("conform").setup({
     lua = { "stylua" },
     python = { "isort", "black" },
     rust = { "rustfmt", lsp_format = "fallback" },
+    html = { "prettier" },
     javascript = {
       "prettierd",
       "prettier",
