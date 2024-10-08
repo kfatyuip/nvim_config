@@ -113,6 +113,7 @@ require("lazy").setup({
   },
   {
     "folke/tokyonight.nvim",
+    lazy = false,
     style = "storm",
     terminal_colors = true,
     transparent = true,
@@ -120,6 +121,9 @@ require("lazy").setup({
       sidebars = "transparent",
       floats = "transparent",
     },
+    config = function()
+      vim.cmd([[colorscheme tokyonight]])
+    end,
   },
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
   {
@@ -155,8 +159,6 @@ require("plugins.tree")
 require("plugins.lsp")
 require("plugins.cmp")
 require("plugins.statusline")
-
-vim.cmd([[colorscheme tokyonight]])
 
 if vim.g.neovide then
   vim.g.neovide_transparency = 0.8
