@@ -46,5 +46,5 @@ local function _vista()
 end
 
 map("n", "<leader>fs", _vista, { desc = "focus Vista" })
-
+map("n", "<leader>fl", "<cmd>FloatermNew<cr>", { desc = "open a floating terminal" })
 map("n", "<leader>ft", require("telescope").extensions.flutter.commands, { desc = "open flutter tools" })
