@@ -149,6 +149,7 @@ require("lazy").setup({
       })
     end,
   },
+  "voldikss/vim-floaterm",
   "liuchengxu/vista.vim",
   "j-hui/fidget.nvim",
 })
