@@ -29,22 +29,13 @@ map("n", "<leader>/", "gcc", { desc = "comment toggle", remap = true })
 map("v", "<leader>/", "gc", { desc = "comment toggle", remap = true })
 
 map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "code action" })
-map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "lsp diagnostic loclist" })
+
+-- map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "lsp diagnostic loclist" })
+map("n", "<leader>ds", "<cmd>Trouble diagnostics<cr>", { desc = "lsp diagnostic loclist" })
 map("n", "<leader>dS", "<cmd>Telescope diagnostics<cr>", { desc = "lsp diagnostic loclist" })
 
-local function _vista()
-  local _buf = vim.api.nvim_buf_get_option(0, "filetype")
-  if _buf == "vista" or _buf == "vista_kind" then
-    vim.cmd("Vista!!")
-  else
-    if vim.bo.filetype == "dart" then
-      vim.cmd("Vista nvim_lsp")
-    else
-      vim.cmd("Vista")
-    end
-  end
-end
+map("n", "<leader>fs", "<cmd>Trouble symbols<cr>", { desc = "" })
+map("n", "<leader>fS", "<cmd>Trouble lsp_document_symbols<cr>")
 
-map("n", "<leader>fs", _vista, { desc = "focus Vista" })
 map("n", "<leader>fl", "<cmd>FloatermNew<cr>", { desc = "open a floating terminal" })
 map("n", "<leader>ft", require("telescope").extensions.flutter.commands, { desc = "open flutter tools" })
