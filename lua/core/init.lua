@@ -34,11 +34,7 @@ require("lazy").setup({
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       if vim.g.neovide then
-        require("telescope").setup({
-          defaults = {
-            winblend = 100,
-          },
-        })
+        require("telescope").setup({})
       end
     end,
   },
@@ -165,9 +161,9 @@ require("plugins.lsp")
 require("plugins.cmp")
 require("plugins.statusline")
 
-if vim.g.neovide then
-  vim.g.neovide_transparency = 0.8
-  vim.g.transparency = 0.8
-  vim.g.neovide_floating_blur = 0.8
-  vim.g.neovide_window_blurred = true
-end
+-- if vim.g.neovide then
+--   vim.g.neovide_transparency = 0.8
+--   vim.g.transparency = 0.8
+--   vim.g.neovide_floating_blur = 0.8
+--   vim.g.neovide_window_blurred = true
+-- end
