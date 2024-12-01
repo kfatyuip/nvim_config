@@ -42,9 +42,9 @@ lspconfig.rust_analyzer.setup({
 
   settings = {
     ["rust-analyzer"] = {
-      diagostics = {
-        enable = true,
-      },
+      -- diagostics = {
+      --   enable = true,
+      -- },
       checkOnSave = {
         command = "clippy",
       },
