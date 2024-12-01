@@ -1,8 +1,8 @@
 require("mason").setup()
 local cmp = require("cmp")
 
-require("luasnip").setup()
 require("luasnip.loaders.from_vscode").lazy_load()
+require("luasnip").filetype_extend("dart", { "flutter" })
 
 cmp.setup({
   snippet = {
