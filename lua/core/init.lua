@@ -42,23 +42,7 @@ require("lazy").setup({
     "nvim-tree/nvim-tree.lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    config = function()
-      ensure_installed = {
-        "lua_ls",
-        "clangd",
-        "taplo",
-        "pyright",
-        "zk",
-        "jsonls",
-        "html",
-        "eslint",
-        "mesonlsp",
-        "rust-analyzer",
-      }
-    end,
-  },
+  "williamboman/mason-lspconfig.nvim",
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
