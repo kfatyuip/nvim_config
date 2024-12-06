@@ -69,19 +69,22 @@ lspconfig.rust_analyzer.setup({
 
 require("fidget").setup()
 
-local prettier_languages = { "html", "css", "javascript" }
 local conform = require("conform")
 conform.setup({
+  log_level = vim.log.levels.DEBUG,
   formatters_by_ft = {
     lua = { "stylua" },
+    json = { "jq" },
     python = { "isort", "black" },
     rust = { "rustfmt", lsp_format = "fallback" },
+    ["*"] = { "prettier", lsp_format = "fallback" },
+  },
+  formatters = {
+    prettier = {
+      append_args = { "--tab-width", vim.o.shiftwidth },
+    },
   },
 })
-
-for _, lang in pairs(prettier_languages) do
-  conform.formatters_by_ft[lang] = { "prettier", lsp_format = "fallback" }
-end
 
 require("lsp-progress").setup()
 vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
