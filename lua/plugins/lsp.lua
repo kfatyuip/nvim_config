@@ -8,6 +8,7 @@ local servers = {
   "zk",
   "jsonls",
   "html",
+  "bashls",
   "ts_ls",
   "mesonlsp",
 }
