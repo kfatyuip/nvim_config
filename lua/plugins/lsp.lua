@@ -8,7 +8,7 @@ local servers = {
   "zk",
   "jsonls",
   "html",
-  "eslint",
+  "ts_ls",
   "mesonlsp",
 }
 
@@ -77,7 +77,7 @@ conform.setup({
     json = { "jq" },
     python = { "isort", "black" },
     rust = { "rustfmt", lsp_format = "fallback" },
-    ["*"] = { "prettier", lsp_format = "fallback" },
+    ["*"] = { "prettier"},
   },
   formatters = {
     prettier = {
