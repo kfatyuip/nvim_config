@@ -72,17 +72,18 @@ require("fidget").setup()
 
 local conform = require("conform")
 conform.setup({
-  log_level = vim.log.levels.DEBUG,
   formatters_by_ft = {
     lua = { "stylua" },
     json = { "jq" },
     python = { "isort", "black" },
     rust = { "rustfmt", lsp_format = "fallback" },
-    ["*"] = { "prettier"},
+    html = { "prettier" },
+    css = { "prettier" },
+    javascript = { "prettier" },
   },
   formatters = {
     prettier = {
-      append_args = { "--tab-width", vim.o.shiftwidth },
+      prepend_args = { "--use-tabs", "--tab-width", vim.o.shiftwidth },
     },
   },
 })
