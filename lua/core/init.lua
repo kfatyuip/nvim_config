@@ -136,6 +136,7 @@ require("lazy").setup({
   },
   "voldikss/vim-floaterm",
   "j-hui/fidget.nvim",
+  "github/copilot.vim",
 })
 
 require("core.keymaps")
