@@ -18,6 +18,7 @@ map("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<cr>", { desc = 
 map("n", "<leader>cm", "<cmd>Telescope git_commits<cr>", { desc = "telescope git commits" })
 map("n", "<leader>st", "<cmd>Telescope git_status<cr>", { desc = "telescope git status" })
 map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "telescope find files" })
+map("n", "<leader>jl", "<cmd>Telescope jumplist<cr>", { desc = "telescope jumplist" })
 
 map("n", "<leader>cl", "<cmd>BufferLineCloseLeft<cr>", { desc = "close left buffers" })
 map("n", "<leader>cr", "<cmd>BufferLineCloseRight<cr>", { desc = "close right buffers" })
