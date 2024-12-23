@@ -29,7 +29,7 @@ map("n", "<leader>x", "<cmd>bd<cr>", { desc = "delete buffer" })
 map("n", "<leader>/", "gcc", { desc = "comment toggle", remap = true })
 map("v", "<leader>/", "gc", { desc = "comment toggle", remap = true })
 
-map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "code action" })
+map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action<cr>", { desc = "code action" })
 
 -- map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "lsp diagnostic loclist" })
 map("n", "<leader>ds", "<cmd>Trouble diagnostics<cr>", { desc = "lsp diagnostic loclist" })
@@ -40,3 +40,10 @@ map("n", "<leader>fS", "<cmd>Trouble lsp_document_symbols<cr>")
 
 map("n", "<leader>fl", "<cmd>FloatermNew<cr>", { desc = "open a floating terminal" })
 map("n", "<leader>ft", require("telescope").extensions.flutter.commands, { desc = "open flutter tools" })
+
+map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", { desc = "Go to definition" })
+map("n", "gD", "<cmd>Telescope lsp_definitions<cr>", { desc = "Go to definitions" })
+map("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", { desc = "Go to references" })
+map("n", "gR", "<cmd>Telescope lsp_references<cr>", { desc = "Goto references" })
+map("n", "gi", "<cmd>luavim.lsp.buf.implementation<cr>", { desc = "Go to implementation" })
+map("n", "gi", "<cmd>Telescope lsp_implementations<cr>", { desc = "Go to implementations" })
