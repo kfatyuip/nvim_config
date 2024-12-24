@@ -29,7 +29,7 @@ map("n", "<leader>x", "<cmd>bd<cr>", { desc = "delete buffer" })
 map("n", "<leader>/", "gcc", { desc = "comment toggle", remap = true })
 map("v", "<leader>/", "gc", { desc = "comment toggle", remap = true })
 
-map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action<cr>", { desc = "code action" })
+map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<cr>", { desc = "code action" })
 
 -- map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "lsp diagnostic loclist" })
 map("n", "<leader>ds", "<cmd>Trouble diagnostics<cr>", { desc = "lsp diagnostic loclist" })
