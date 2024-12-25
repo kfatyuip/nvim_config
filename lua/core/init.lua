@@ -12,6 +12,8 @@ vim.g.maplocalleader = "\\"
 
 vim.g.nvim_tree_respect_buf_cwd = 1
 
+vim.api.nvim_create_user_command("Config", "cd " .. vim.fn.stdpath("config"), {})
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
