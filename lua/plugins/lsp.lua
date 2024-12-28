@@ -1,18 +1,6 @@
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-local servers = {
-  "gopls",
-  "lua_ls",
-  "clangd",
-  "taplo",
-  "pyright",
-  "zk",
-  "jsonls",
-  "html",
-  "bashls",
-  "ts_ls",
-  "mesonlsp",
-}
+local servers = require("mason-lspconfig").get_installed_servers()
 
 -- local on_attach = function(client, bufnr)
 --   local opts = { noremap = true, silent = true }
@@ -31,14 +19,14 @@ end
 local lspconfig = require("lspconfig")
 for _, lsp in pairs(servers) do
   lspconfig[lsp].setup({
-    on_attach = on_attach,
+    -- on_attach = on_attach,
     on_init = on_init,
     capabilities = capabilities,
   })
 end
 
 lspconfig.rust_analyzer.setup({
-  on_attach = on_attach,
+  -- on_attach = on_attach,
   on_init = on_init,
   capabilities = capabilities,
 
