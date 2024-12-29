@@ -134,7 +134,7 @@ require("lazy").setup({
     opts = {}, -- for default options, refer to the configuration section for custom setup.
     cmd = "Trouble",
   },
-  "voldikss/vim-floaterm",
+  {'akinsho/toggleterm.nvim', version = "*", config = true},
   "j-hui/fidget.nvim",
   "github/copilot.vim",
 })
@@ -145,6 +145,7 @@ require("core.cmd")
 require("plugins.tree")
 require("plugins.lsp")
 require("plugins.cmp")
+require("plugins.term")
 require("plugins.statusline")
 
 -- if vim.g.neovide then
