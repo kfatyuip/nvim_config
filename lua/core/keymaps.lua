@@ -9,7 +9,7 @@ map("n", "<leader>fm", function()
   require("conform").format({ lsp_fallback = true })
 end, { desc = "format files" })
 
-map("n", "<leader>fl", "<cmd>FloatermNew<cr>", { desc = "open a floating terminal" })
+map("n", "<leader>fl", "<cmd>ToggleTerm direction=float<cr>", { desc = "open a floating terminal" })
 
 map("n", "<leader>tl", "<cmd>Telescope<cr>", { desc = "open telescope" })
 map("n", "<leader>fw", "<cmd>Telescope live_grep<cr>", { desc = "telescope live grep" })
