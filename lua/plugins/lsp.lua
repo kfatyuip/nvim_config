@@ -85,6 +85,11 @@ vim.api.nvim_create_autocmd("User", {
   callback = require("lualine").refresh,
 })
 
+local flutter_path = "/opt/flutter/bin/flutter"
+if os.getenv("FLUTTER_ROOT") ~= nil then
+  flutter_path = os.getenv("FLUTTER_ROOT") .. "/bin/flutter"
+end
+
 require("flutter-tools").setup({
-	flutter_path = "/opt/flutter/bin/flutter"
+  flutter_path = flutter_path,
 })
