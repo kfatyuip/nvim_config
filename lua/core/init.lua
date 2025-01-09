@@ -134,7 +134,7 @@ require("lazy").setup({
     opts = {}, -- for default options, refer to the configuration section for custom setup.
     cmd = "Trouble",
   },
-  {'akinsho/toggleterm.nvim', version = "*", config = true},
+  { "akinsho/toggleterm.nvim", version = "*", config = true },
   "j-hui/fidget.nvim",
   "github/copilot.vim",
 })
