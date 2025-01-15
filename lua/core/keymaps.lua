@@ -42,9 +42,9 @@ map("n", "<leader>dS", "<cmd>Telescope diagnostics<cr>", { desc = "lsp diagnosti
 map("n", "<leader>fs", "<cmd>Trouble symbols<cr>", { desc = "" })
 map("n", "<leader>fS", "<cmd>Trouble lsp_document_symbols<cr>")
 
-map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", { desc = "go to definition" })
+map("n", "gd", "<cmd>Trouble lsp_definitions<cr>", { desc = "go to definition" })
 map("n", "gD", "<cmd>Telescope lsp_definitions<cr>", { desc = "go to definitions" })
-map("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", { desc = "go to references" })
+map("n", "gr", "<cmd>Trouble lsp_references<cr>", { desc = "go to references" })
 map("n", "gR", "<cmd>Telescope lsp_references<cr>", { desc = "go to references" })
-map("n", "gi", "<cmd>luavim.lsp.buf.implementation<cr>", { desc = "go to implementation" })
+-- map("n", "gi", "<cmd>Trouble lsp_implementations<cr>", { desc = "go to implementation" })
 map("n", "gi", "<cmd>Telescope lsp_implementations<cr>", { desc = "go to implementations" })
