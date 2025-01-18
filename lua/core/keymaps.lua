@@ -48,3 +48,5 @@ map("n", "gr", "<cmd>Trouble lsp_references<cr>", { desc = "go to references" })
 map("n", "gR", "<cmd>Telescope lsp_references<cr>", { desc = "go to references" })
 -- map("n", "gi", "<cmd>Trouble lsp_implementations<cr>", { desc = "go to implementation" })
 map("n", "gi", "<cmd>Telescope lsp_implementations<cr>", { desc = "go to implementations" })
+
+map("n", "<leader>tn", "<cmd>tabnew<cr>", { desc = "open a new tab" })
