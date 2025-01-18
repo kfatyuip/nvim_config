@@ -9,6 +9,7 @@ map("n", "<leader>fm", function()
   require("conform").format({ lsp_fallback = true })
 end, { desc = "format files" })
 
+map("n", "<leader>lz", "<cmd>Lazy<cr>", { desc = "open Lazy menu" })
 map("n", "<leader>fl", "<cmd>ToggleTerm direction=float<cr>", { desc = "open a floating terminal" })
 
 map("n", "<leader>tl", "<cmd>Telescope<cr>", { desc = "open telescope" })
