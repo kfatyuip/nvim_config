@@ -51,3 +51,5 @@ map("n", "gR", "<cmd>Telescope lsp_references<cr>", { desc = "go to references" 
 map("n", "gi", "<cmd>Telescope lsp_implementations<cr>", { desc = "go to implementations" })
 
 map("n", "<leader>tn", "<cmd>tabnew<cr>", { desc = "open a new tab" })
+
+map("n", "<leader>ln", "<cmd>InlayHintToggle<cr>", { desc = "inlay hint toggle" })
