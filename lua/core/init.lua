@@ -147,6 +147,7 @@ require("plugins.lsp")
 require("plugins.cmp")
 require("plugins.term")
 require("plugins.statusline")
+require("plugins.ts")
 
 -- if vim.g.neovide then
 --   vim.g.neovide_transparency = 0.8
