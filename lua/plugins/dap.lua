@@ -8,7 +8,7 @@ require("dap-python").setup("python3")
 
 dap.adapters.lldb = {
   type = "executable",
-  command = "/usr/bin/lldb-dap",
+  command = (os.getenv("PREFIX") or "/usr") .. "/bin/lldb-dap",
   name = "lldb",
 }
 
@@ -55,6 +55,13 @@ map("n", "<Leader>dw", function()
   local widgets = require("dap.ui.widgets")
   widgets.centered_float(widgets.scopes)
 end, { desc = "scopes" })
+map("n", "<leader>de", "<cmd>DapTerminate<cr>", { desc = "terminate" })
+
+map("n", "<leader>tdb", "<cmd>Telescope dap list_breakpoints<cr>", { desc = "list breakpoints" })
+map("n", "<leader>tdc", "<cmd>Telescope dap commands<cr>", { desc = "commands" })
+map("n", "<leader>tds", "<cmd>Telescope dap configurations<cr>", { desc = "configurations" })
+map("n", "<leader>tdt", "<cmd>Telescope dap variables<cr>", { desc = "variables" })
+map("n", "<leader>tdf", "<cmd>Telescope dap frames<cr>", { desc = "frames" })
 
 dapui.setup()
 

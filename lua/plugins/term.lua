@@ -38,6 +38,6 @@ function _htop_toggle()
   htop:toggle()
 end
 
-vim.api.nvim_set_keymap("n", "<leader>gi", "<cmd>lua _lazygit_toggle()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>py", "<cmd>lua _python_toggle()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>ht", "<cmd>lua _htop_toggle()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>gi", "<cmd>lua _lazygit_toggle()<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>py", "<cmd>lua _python_toggle()<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>ht", "<cmd>lua _htop_toggle()<cr>", { noremap = true, silent = true })
