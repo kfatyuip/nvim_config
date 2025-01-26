@@ -135,6 +135,16 @@ require("lazy").setup({
     cmd = "Trouble",
   },
   { "akinsho/toggleterm.nvim", version = "*", config = true },
+  {
+    "mfussenegger/nvim-dap",
+    dependencies = {
+      "rcarriga/nvim-dap-ui",
+      "nvim-neotest/nvim-nio",
+      "nvim-telescope/telescope-dap.nvim",
+      "theHamsta/nvim-dap-virtual-text",
+      "mfussenegger/nvim-dap-python",
+    },
+  },
   "j-hui/fidget.nvim",
   "github/copilot.vim",
 })
@@ -148,6 +158,7 @@ require("plugins.cmp")
 require("plugins.term")
 require("plugins.statusline")
 require("plugins.ts")
+require("plugins.dap")
 
 -- if vim.g.neovide then
 --   vim.g.neovide_transparency = 0.8
