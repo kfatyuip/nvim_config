@@ -40,8 +40,8 @@ map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<cr>", { desc = "code 
 map("n", "<leader>ds", "<cmd>Trouble diagnostics<cr>", { desc = "lsp diagnostic loclist" })
 map("n", "<leader>dS", "<cmd>Telescope diagnostics<cr>", { desc = "lsp diagnostic loclist" })
 
-map("n", "<leader>fs", "<cmd>Trouble symbols<cr>", { desc = "" })
-map("n", "<leader>fS", "<cmd>Trouble lsp_document_symbols<cr>")
+map("n", "<leader>fs", "<cmd>Trouble symbols<cr>", { desc = "list symbols" })
+map("n", "<leader>fS", "<cmd>Trouble lsp_document_symbols<cr>", { desc = "list document symbols" })
 
 map("n", "gd", "<cmd>Trouble lsp_definitions<cr>", { desc = "go to definition" })
 map("n", "gD", "<cmd>Telescope lsp_definitions<cr>", { desc = "go to definitions" })
