@@ -1,20 +1,12 @@
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
 local servers = require("mason-lspconfig").get_installed_servers()
-
--- local on_attach = function(client, bufnr)
---   local opts = { noremap = true, silent = true }
---   vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
---   vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>Telescope lsp_definitions<cr>", opts)
---   vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", opts)
---   vim.api.nvim_buf_set_keymap(bufnr, "n", "gR", "<cmd>Telescope lsp_references<cr>", opts)
--- end
 
 local on_init = function(client)
   client.server_capabilities.workspace = {
     workspace_folders = true,
   }
 end
+
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 local lspconfig = require("lspconfig")
 for _, lsp in pairs(servers) do
@@ -24,6 +16,25 @@ for _, lsp in pairs(servers) do
     capabilities = capabilities,
   })
 end
+
+lspconfig.lua_ls.setup({
+  -- on_attach = on_attach,
+  on_init = on_init,
+  capabilities = capabilities,
+  settings = {
+    Lua = {
+      workspace = {
+        checkThirdParty = false,
+        library = {
+          vim.env.VIMRUNTIME,
+        },
+      },
+      codeLens = {
+        enable = true,
+      },
+    },
+  },
+})
 
 lspconfig.rust_analyzer.setup({
   -- on_attach = on_attach,
