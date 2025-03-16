@@ -10,6 +10,9 @@ vim.wo.number = true
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+vim.opt.wildmenu = true
+vim.opt.wildmode = "full"
+
 vim.g.nvim_tree_respect_buf_cwd = 1
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -32,17 +35,20 @@ require("lazy").setup({
   {
     "nvim-telescope/telescope.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      if vim.g.neovide then
-        require("telescope").setup({})
-      end
-    end,
   },
   {
     "nvim-tree/nvim-tree.lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("plugins.tree")
+    end,
   },
-  "williamboman/mason-lspconfig.nvim",
+  {
+    "williamboman/mason-lspconfig.nvim",
+    config = function()
+      require("plugins.lsp")
+    end,
+  },
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
@@ -55,12 +61,18 @@ require("lazy").setup({
       "saadparwaiz1/cmp_luasnip",
       "rafamadriz/friendly-snippets",
     },
+    config = function()
+      require("plugins.cmp")
+    end,
   },
   {
     "nvim-lualine/lualine.nvim",
     dependencies = {
       "nvim-tree/nvim-web-devicons",
     },
+    config = function()
+      require("plugins.statusline")
+    end,
   },
   {
     "folke/which-key.nvim",
@@ -105,7 +117,13 @@ require("lazy").setup({
       vim.cmd([[colorscheme tokyonight]])
     end,
   },
-  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function()
+      require("plugins.ts")
+    end,
+  },
   {
     "shellRaining/hlchunk.nvim",
     event = { "BufReadPre", "BufNewFile" },
@@ -134,7 +152,13 @@ require("lazy").setup({
     opts = {}, -- for default options, refer to the configuration section for custom setup.
     cmd = "Trouble",
   },
-  { "akinsho/toggleterm.nvim", version = "*", config = true },
+  {
+    "akinsho/toggleterm.nvim",
+    version = "*",
+    config = function()
+      require("plugins.term")
+    end,
+  },
   {
     "mfussenegger/nvim-dap",
     dependencies = {
@@ -144,6 +168,9 @@ require("lazy").setup({
       "theHamsta/nvim-dap-virtual-text",
       "mfussenegger/nvim-dap-python",
     },
+    config = function()
+      require("plugins.dap")
+    end,
   },
   "j-hui/fidget.nvim",
   "github/copilot.vim",
@@ -151,14 +178,6 @@ require("lazy").setup({
 
 require("core.keymaps")
 require("core.cmd")
-
-require("plugins.tree")
-require("plugins.lsp")
-require("plugins.cmp")
-require("plugins.term")
-require("plugins.statusline")
-require("plugins.ts")
-require("plugins.dap")
 
 -- if vim.g.neovide then
 --   vim.g.neovide_transparency = 0.8
