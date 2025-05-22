@@ -46,9 +46,7 @@ lspconfig.rust_analyzer.setup({
       diagostics = {
         enable = false,
       },
-      checkOnSave = {
-        command = "clippy",
-      },
+      checkOnSave = true,
       cargo = {
         buildScripts = {
           enable = true,
