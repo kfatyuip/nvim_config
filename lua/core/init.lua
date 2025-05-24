@@ -179,9 +179,9 @@ require("lazy").setup({
 require("core.keymaps")
 require("core.cmd")
 
--- if vim.g.neovide then
---   vim.g.neovide_transparency = 0.8
---   vim.g.transparency = 0.8
---   vim.g.neovide_floating_blur = 0.8
---   vim.g.neovide_window_blurred = true
--- end
+if vim.g.neovide then
+  vim.g.neovide_opacity = 0.8
+  vim.g.transparency = 0.8
+  vim.g.neovide_floating_blur = 0.8
+  vim.g.neovide_window_blurred = true
+end
