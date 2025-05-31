@@ -17,6 +17,12 @@ for _, lsp in pairs(servers) do
   })
 end
 
+lspconfig.clangd.setup({
+  on_init = on_init,
+  capabilities = capabilities,
+  root_dir = lspconfig.util.root_pattern("compile_commands.json", "compile_flags.txt", ".git"),
+})
+
 lspconfig.lua_ls.setup({
   -- on_attach = on_attach,
   on_init = on_init,
