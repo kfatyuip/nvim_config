@@ -53,3 +53,9 @@ map("n", "gi", "<cmd>Telescope lsp_implementations<cr>", { desc = "go to impleme
 map("n", "<leader>tn", "<cmd>tabnew<cr>", { desc = "open a new tab" })
 
 map("n", "<leader>ln", "<cmd>InlayHintToggle<cr>", { desc = "inlay hint toggle" })
+
+if vim.g.neovide then
+  map({ "n", "v" }, "<C-+>", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>")
+  map({ "n", "v" }, "<C-->", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>")
+  map({ "n", "v" }, "<C-0>", ":lua vim.g.neovide_scale_factor = 1<CR>")
+end
