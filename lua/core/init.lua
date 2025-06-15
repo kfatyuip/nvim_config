@@ -172,6 +172,30 @@ require("lazy").setup({
       require("plugins.dap")
     end,
   },
+  {
+    "saecki/crates.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("crates").setup({
+        lsp = {
+          enabled = true,
+          actions = true,
+          completion = true,
+          hover = true,
+        },
+        popup = {
+          autofocus = true,
+          border = "rounded",
+        },
+      })
+      local crates = require("crates")
+      vim.keymap.set("n", "<leader>cv", crates.show_versions_popup, { desc = "Show Crate Versions" })
+      vim.keymap.set("n", "<leader>cf", crates.show_features_popup, { desc = "Show Crate Features" })
+      vim.keymap.set("n", "<leader>cd", crates.show_dependencies_popup, { desc = "Show Crate Dependencies" })
+      vim.keymap.set("n", "<leader>cu", crates.update_crate, { desc = "Update Crate" })
+      vim.keymap.set("n", "<leader>cU", crates.update_all_crates, { desc = "Update All Crates" })
+    end,
+  },
   "j-hui/fidget.nvim",
   "github/copilot.vim",
 })
