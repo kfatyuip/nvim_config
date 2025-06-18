@@ -49,15 +49,12 @@ lspconfig.rust_analyzer.setup({
 
   settings = {
     ["rust-analyzer"] = {
-      diagostics = {
-        enable = false,
-      },
-      checkOnSave = true,
+      checkOnSave = os.getenv("checkOnSave") ~= nil,
       cargo = {
         buildScripts = {
-          enable = true,
+          enable = os.getenv("buildScripts") ~= nil,
         },
-        allFeatures = true,
+        allFeatures = os.getenv("allFeatures") ~= nil,
         loadOutDirsFromCheck = true,
       },
       procMacro = {
