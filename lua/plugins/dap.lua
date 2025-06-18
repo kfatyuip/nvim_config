@@ -68,7 +68,7 @@ dap.configurations.rust = {
       return vim.split(input, " ")
     end,
     initCommands = function()
-      local rust_pretty_print = os.getenv("RUST_LLDB_PRINT") or "/usr/share/rust/src/etc/lldb_commands"
+      local rust_pretty_print = os.getenv("RUST_LLDB_PRINT") or "/usr/lib/rustlib/etc/lldb_commands"
 
       if vim.fn.filereadable(rust_pretty_print) == 1 then
         return { "command source " .. rust_pretty_print }
