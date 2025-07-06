@@ -15,6 +15,13 @@ vim.opt.wildmode = "full"
 
 vim.g.nvim_tree_respect_buf_cwd = 1
 
+if vim.g.neovide then
+  vim.g.neovide_opacity = 0.8
+  vim.g.transparency = 0.8
+  vim.g.neovide_floating_blur = 0.8
+  vim.g.neovide_window_blurred = true
+end
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -39,16 +46,8 @@ require("lazy").setup({
   {
     "nvim-tree/nvim-tree.lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      require("plugins.tree")
-    end,
   },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    config = function()
-      require("plugins.lsp")
-    end,
-  },
+  "williamboman/mason-lspconfig.nvim",
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
@@ -61,18 +60,12 @@ require("lazy").setup({
       "saadparwaiz1/cmp_luasnip",
       "rafamadriz/friendly-snippets",
     },
-    config = function()
-      require("plugins.cmp")
-    end,
   },
   {
     "nvim-lualine/lualine.nvim",
     dependencies = {
       "nvim-tree/nvim-web-devicons",
     },
-    config = function()
-      require("plugins.statusline")
-    end,
   },
   {
     "folke/which-key.nvim",
@@ -89,7 +82,7 @@ require("lazy").setup({
   },
   {
     "akinsho/flutter-tools.nvim",
-    lazy = false,
+    ft = "dart",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "stevearc/dressing.nvim", -- optional for vim.ui.select
@@ -120,9 +113,6 @@ require("lazy").setup({
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    config = function()
-      require("plugins.ts")
-    end,
   },
   {
     "shellRaining/hlchunk.nvim",
@@ -155,9 +145,6 @@ require("lazy").setup({
   {
     "akinsho/toggleterm.nvim",
     version = "*",
-    config = function()
-      require("plugins.term")
-    end,
   },
   {
     "mfussenegger/nvim-dap",
@@ -168,9 +155,6 @@ require("lazy").setup({
       "theHamsta/nvim-dap-virtual-text",
       "mfussenegger/nvim-dap-python",
     },
-    config = function()
-      require("plugins.dap")
-    end,
   },
   {
     "saecki/crates.nvim",
@@ -203,9 +187,10 @@ require("lazy").setup({
 require("core.keymaps")
 require("core.cmd")
 
-if vim.g.neovide then
-  vim.g.neovide_opacity = 0.8
-  vim.g.transparency = 0.8
-  vim.g.neovide_floating_blur = 0.8
-  vim.g.neovide_window_blurred = true
-end
+require("plugins.tree")
+require("plugins.cmp")
+require("plugins.term")
+require("plugins.ts")
+require("plugins.statusline")
+require("plugins.lsp")
+require("plugins.dap")
