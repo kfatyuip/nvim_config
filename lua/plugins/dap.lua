@@ -1,18 +1,13 @@
 local dap = require("dap")
 local dapui = require("dapui")
-local map = vim.keymap.set
 
 require("telescope").load_extension("dap")
 require("nvim-dap-virtual-text").setup()
 require("dap-python").setup("python3")
 
-local lldb_path = vim.fn.exepath("lldb-dap") or (os.getenv("PREFIX") or "/usr") .. "/bin/lldb-dap"
-
-dap.adapters.lldb = {
-  type = "executable",
-  command = lldb_path,
-  name = "lldb",
-}
+if vim.fn.executable("uv") == 1 then
+  require("dap-python").setup("uv")
+end
 
 dap.adapters.codelldb = {
   type = "server",
@@ -26,8 +21,8 @@ dap.adapters.codelldb = {
 
 dap.configurations.c = {
   {
-    name = "Launch with LLDB",
-    type = "lldb",
+    name = "Launch with CodeLLDB",
+    type = "codelldb",
     request = "launch",
     program = function()
       return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
@@ -76,47 +71,10 @@ dap.configurations.rust = {
       return {}
     end,
   },
-  {
-    name = "Rust Launch (LLDB)",
-    type = "lldb",
-    request = "launch",
-    program = function()
-      return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/target/debug/", "file")
-    end,
-    cwd = "${workspaceFolder}",
-    stopOnEntry = false,
-    args = function()
-      local input = vim.fn.input("Enter arguments: ")
-      return vim.split(input, " ")
-    end,
-  },
 }
 
 vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "Error", linehl = "", numhl = "" })
 vim.fn.sign_define("DapStopped", { text = "➔", texthl = "WarningMsg", linehl = "", numhl = "" })
-
-map("n", "<F5>", dap.continue, { desc = "Continue" })
-map("n", "<F10>", dap.step_over, { desc = "Step Over" })
-map("n", "<F11>", dap.step_into, { desc = "Step Into" })
-map("n", "<F12>", dap.step_out, { desc = "Step Out" })
-map("n", "<Leader>db", dap.toggle_breakpoint, { desc = "Toggle Breakpoint" })
-map("n", "<Leader>dB", function()
-  dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
-end, { desc = "Conditional Breakpoint" })
-map("n", "<Leader>dr", dap.repl.open, { desc = "Open REPL" })
-map("n", "<Leader>dl", dap.run_last, { desc = "Run Last" })
-map({ "n", "v" }, "<Leader>dh", require("dap.ui.widgets").hover, { desc = "Hover" })
-map({ "n", "v" }, "<Leader>dp", require("dap.ui.widgets").preview, { desc = "Preview" })
-map("n", "<Leader>dlp", function()
-  dap.set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
-end, { desc = "Log Point" })
-map("n", "<Leader>de", dap.terminate, { desc = "Terminate" })
-
-map("n", "<leader>tdb", "<cmd>Telescope dap list_breakpoints<cr>", { desc = "List Breakpoints" })
-map("n", "<leader>tdc", "<cmd>Telescope dap commands<cr>", { desc = "Commands" })
-map("n", "<leader>tds", "<cmd>Telescope dap configurations<cr>", { desc = "Configurations" })
-map("n", "<leader>tdv", "<cmd>Telescope dap variables<cr>", { desc = "Variables" })
-map("n", "<leader>tdf", "<cmd>Telescope dap frames<cr>", { desc = "Frames" })
 
 dapui.setup({
   layouts = {
