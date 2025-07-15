@@ -48,6 +48,9 @@ conform.setup({
     html = { "prettier" },
     css = { "prettier" },
     javascript = { "prettier" },
+    sh = { "shfmt" },
+    bash = { "shfmt" },
+    zsh = { "shfmt" },
   },
   formatters = {
     prettier = {
