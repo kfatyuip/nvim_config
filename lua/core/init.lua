@@ -37,7 +37,12 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   "williamboman/mason.nvim",
-  "linrongbin16/lsp-progress.nvim",
+  {
+    "linrongbin16/lsp-progress.nvim",
+    config = function()
+      require("lsp-progress").setup()
+    end,
+  },
   "stevearc/conform.nvim",
   {
     "nvim-telescope/telescope.nvim",
@@ -180,7 +185,12 @@ require("lazy").setup({
       vim.keymap.set("n", "<leader>cU", crates.update_all_crates, { desc = "Update All Crates" })
     end,
   },
-  "j-hui/fidget.nvim",
+  {
+    "j-hui/fidget.nvim",
+    config = function()
+      require("fidget").setup()
+    end,
+  },
   "github/copilot.vim",
 })
 

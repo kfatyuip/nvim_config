@@ -3,10 +3,39 @@ local dapui = require("dapui")
 
 require("telescope").load_extension("dap")
 require("nvim-dap-virtual-text").setup()
-require("dap-python").setup("python3")
 
 if vim.fn.executable("uv") == 1 then
   require("dap-python").setup("uv")
+else
+  require("dap-python").setup("python3")
+end
+
+local function read_args()
+  local args_string = vim.fn.input("Arguments: ")
+  local utils = require("dap.utils")
+  if utils.splitstr and vim.fn.has("nvim-0.10") == 1 then
+    return utils.splitstr(args_string)
+  end
+  return vim.split(args_string, " +")
+end
+
+local function pick_executable(lang)
+  local default_dir = vim.fn.getcwd()
+  local candidate_glob = ""
+  if lang == "rust" then
+    default_dir = default_dir .. "/target/debug/"
+    candidate_glob = default_dir .. "*"
+  else
+    default_dir = default_dir .. "/"
+    candidate_glob = default_dir .. "*"
+  end
+  local candidates = vim.split(vim.fn.glob(candidate_glob), "\n")
+  for _, candidate in ipairs(candidates) do
+    if vim.fn.executable(candidate) == 1 then
+      return candidate
+    end
+  end
+  return vim.fn.input("Path to executable: ", default_dir, "file")
 end
 
 dap.adapters.codelldb = {
@@ -19,59 +48,52 @@ dap.adapters.codelldb = {
   },
 }
 
-dap.configurations.c = {
-  {
-    name = "Launch with CodeLLDB",
-    type = "codelldb",
-    request = "launch",
-    program = function()
-      return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-    end,
-    cwd = "${workspaceFolder}",
-    stopOnEntry = false,
-    args = function()
-      local input = vim.fn.input("Enter arguments (space-separated): ")
-      return vim.split(input, " ")
-    end,
-    runInTerminal = false,
-  },
-}
+local function rust_init_commands()
+  local rust_pretty_print = os.getenv("RUST_LLDB_PRINT") or "/usr/lib/rustlib/etc/lldb_commands"
+  if vim.fn.filereadable(rust_pretty_print) == 1 then
+    return { "command source " .. rust_pretty_print }
+  end
+  return {}
+end
+
+local function generate_dap_config(lang)
+  local base_config = {
+    {
+      name = "file (CodeLLDB)",
+      type = "codelldb",
+      request = "launch",
+      program = function()
+        return pick_executable(lang)
+      end,
+      cwd = "${workspaceFolder}",
+      stopOnEntry = false,
+      terminal = "integrated",
+    },
+    {
+      name = "file:args (CodeLLDB)",
+      type = "codelldb",
+      request = "launch",
+      program = function()
+        return pick_executable(lang)
+      end,
+      cwd = "${workspaceFolder}",
+      stopOnEntry = false,
+      args = read_args,
+      terminal = "integrated",
+    },
+  }
+  if lang == "rust" then
+    for _, config in ipairs(base_config) do
+      config.initCommands = rust_init_commands
+    end
+  end
+
+  return base_config
+end
+
+dap.configurations.c = generate_dap_config("c")
 dap.configurations.cpp = dap.configurations.c
-
-dap.configurations.rust = {
-  {
-    name = "Rust Launch (codelldb)",
-    type = "codelldb",
-    request = "launch",
-    program = function()
-      local cargo_target = vim.fn.getcwd() .. "/target/debug/"
-      local candidates = vim.split(vim.fn.glob(cargo_target .. "*"), "\n")
-
-      for _, candidate in ipairs(candidates) do
-        if vim.fn.executable(candidate) == 1 then
-          return candidate
-        end
-      end
-
-      return vim.fn.input("Path to executable: ", cargo_target, "file")
-    end,
-    cwd = "${workspaceFolder}",
-    terminal = "integrated",
-    stopOnEntry = false,
-    args = function()
-      local input = vim.fn.input("Enter arguments (space-separated): ")
-      return vim.split(input, " ")
-    end,
-    initCommands = function()
-      local rust_pretty_print = os.getenv("RUST_LLDB_PRINT") or "/usr/lib/rustlib/etc/lldb_commands"
-
-      if vim.fn.filereadable(rust_pretty_print) == 1 then
-        return { "command source " .. rust_pretty_print }
-      end
-      return {}
-    end,
-  },
-}
+dap.configurations.rust = generate_dap_config("rust")
 
 vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "Error", linehl = "", numhl = "" })
 vim.fn.sign_define("DapStopped", { text = "➔", texthl = "WarningMsg", linehl = "", numhl = "" })
