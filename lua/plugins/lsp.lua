@@ -1,5 +1,4 @@
 local lspconfig = require("lspconfig")
-
 local function setup_server(server)
   local config = {
     on_init = function(client)
@@ -7,7 +6,6 @@ local function setup_server(server)
     end,
     capabilities = require("cmp_nvim_lsp").default_capabilities(),
   }
-
   local server_configs = {
     clangd = { root_dir = lspconfig.util.root_pattern("compile_commands.json", "compile_flags.txt", ".git") },
     lua_ls = {
@@ -40,15 +38,13 @@ for _, lsp in ipairs(require("mason-lspconfig").get_installed_servers()) do
   lspconfig[lsp].setup(setup_server(lsp))
 end
 
-require("fidget").setup()
-
 local conform = require("conform")
 conform.setup({
   formatters_by_ft = {
     lua = { "stylua" },
     json = { "jq" },
     python = { "isort", "black" },
-    rust = { "rustfmt", lsp_format = "fallback" },
+    rust = { "rustfmt" },
     html = { "prettier" },
     css = { "prettier" },
     javascript = { "prettier" },
@@ -60,7 +56,6 @@ conform.setup({
   },
 })
 
-require("lsp-progress").setup()
 vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
 vim.api.nvim_create_autocmd("User", {
   group = "lualine_augroup",
@@ -68,11 +63,6 @@ vim.api.nvim_create_autocmd("User", {
   callback = require("lualine").refresh,
 })
 
-local flutter_path = "/opt/flutter/bin/flutter"
-if os.getenv("FLUTTER_ROOT") ~= nil then
-  flutter_path = os.getenv("FLUTTER_ROOT") .. "/bin/flutter"
-end
-
-require("flutter-tools").setup({
-  flutter_path = flutter_path,
-})
+local flutter_path = os.getenv("FLUTTER_ROOT") and (os.getenv("FLUTTER_ROOT") .. "/bin/flutter")
+  or "/opt/flutter/bin/flutter"
+require("flutter-tools").setup({ flutter_path = flutter_path })
