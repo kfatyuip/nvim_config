@@ -191,6 +191,11 @@ require("lazy").setup({
       require("fidget").setup()
     end,
   },
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+    opts = {},
+  },
   "github/copilot.vim",
 })
 
@@ -200,7 +205,7 @@ require("core.cmd")
 require("plugins.tree")
 require("plugins.cmp")
 require("plugins.term")
-require("plugins.ts")
+require("plugins.treesitter")
 require("plugins.statusline")
 require("plugins.lsp")
 require("plugins.dap")
