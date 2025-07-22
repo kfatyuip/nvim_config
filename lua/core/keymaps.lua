@@ -83,3 +83,10 @@ map("n", "<leader>tdc", "<cmd>Telescope dap commands<cr>", { desc = "Commands" }
 map("n", "<leader>tds", "<cmd>Telescope dap configurations<cr>", { desc = "Configurations" })
 map("n", "<leader>tdv", "<cmd>Telescope dap variables<cr>", { desc = "Variables" })
 map("n", "<leader>tdf", "<cmd>Telescope dap frames<cr>", { desc = "Frames" })
+
+local crates = require("crates")
+map("n", "<leader>cv", crates.show_versions_popup, { desc = "Show Crate Versions" })
+map("n", "<leader>cf", crates.show_features_popup, { desc = "Show Crate Features" })
+map("n", "<leader>cd", crates.show_dependencies_popup, { desc = "Show Crate Dependencies" })
+map("n", "<leader>cu", crates.update_crate, { desc = "Update Crate" })
+map("n", "<leader>cU", crates.update_all_crates, { desc = "Update All Crates" })
