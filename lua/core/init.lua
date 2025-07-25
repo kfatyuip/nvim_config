@@ -52,6 +52,11 @@ require("lazy").setup({
     "nvim-tree/nvim-tree.lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
+  {
+    "stevearc/oil.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    lazy = false,
+  },
   "williamboman/mason-lspconfig.nvim",
   {
     "hrsh7th/nvim-cmp",
@@ -94,11 +99,15 @@ require("lazy").setup({
     },
     config = true,
   },
+
   {
-    "akinsho/bufferline.nvim",
-    dependencies = "nvim-tree/nvim-web-devicons",
-    config = function()
-      require("bufferline").setup()
+    "romgrk/barbar.nvim",
+    dependencies = {
+      "lewis6991/gitsigns.nvim",
+      "nvim-tree/nvim-web-devicons",
+    },
+    init = function()
+      vim.g.barbar_auto_setup = true
     end,
   },
   {

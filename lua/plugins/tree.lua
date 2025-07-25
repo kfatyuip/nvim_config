@@ -10,3 +10,5 @@ require("nvim-tree").setup({
     enable = true,
   },
 })
+
+require("oil").setup()
