@@ -13,6 +13,9 @@ vim.g.maplocalleader = "\\"
 vim.opt.wildmenu = true
 vim.opt.wildmode = "full"
 
+vim.o.exrc = true
+vim.o.secure = true
+
 vim.g.nvim_tree_respect_buf_cwd = 1
 
 if vim.g.neovide then
@@ -29,7 +32,7 @@ if not vim.loop.fs_stat(lazypath) then
     "clone",
     "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
+    "--branch=stable",
     lazypath,
   })
 end
@@ -37,12 +40,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   "williamboman/mason.nvim",
-  {
-    "linrongbin16/lsp-progress.nvim",
-    config = function()
-      require("lsp-progress").setup()
-    end,
-  },
+  "linrongbin16/lsp-progress.nvim",
   "stevearc/conform.nvim",
   {
     "nvim-telescope/telescope.nvim",
@@ -95,7 +93,7 @@ require("lazy").setup({
     ft = "dart",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "stevearc/dressing.nvim", -- optional for vim.ui.select
+      "stevearc/dressing.nvim",
     },
     config = true,
   },
@@ -131,29 +129,10 @@ require("lazy").setup({
   {
     "shellRaining/hlchunk.nvim",
     event = { "BufReadPre", "BufNewFile" },
-    config = function()
-      require("hlchunk").setup({
-        chunk = {
-          enable = true,
-          use_treesitter = true,
-          chars = {
-            horizontal_line = "─",
-            vertical_line = "│",
-            left_top = "╭",
-            left_bottom = "╰",
-            right_arrow = ">",
-          },
-          style = "#806d9c",
-        },
-        indent = {
-          enable = true,
-        },
-      })
-    end,
   },
   {
     "folke/trouble.nvim",
-    opts = {}, -- for default options, refer to the configuration section for custom setup.
+    opts = {},
     cmd = "Trouble",
   },
   {
@@ -173,31 +152,11 @@ require("lazy").setup({
   {
     "saecki/crates.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      require("crates").setup({
-        lsp = {
-          enabled = true,
-          actions = true,
-          completion = true,
-          hover = true,
-        },
-        popup = {
-          autofocus = true,
-          border = "rounded",
-        },
-      })
-    end,
   },
-  {
-    "j-hui/fidget.nvim",
-    config = function()
-      require("fidget").setup()
-    end,
-  },
+  "j-hui/fidget.nvim",
   {
     "MeanderingProgrammer/render-markdown.nvim",
     dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
-    opts = {},
   },
   "github/copilot.vim",
 })
