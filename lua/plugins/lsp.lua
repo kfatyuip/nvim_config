@@ -38,27 +38,6 @@ for _, lsp in ipairs(require("mason-lspconfig").get_installed_servers()) do
   lspconfig[lsp].setup(setup_server(lsp))
 end
 
-local conform = require("conform")
-conform.setup({
-  formatters_by_ft = {
-    lua = { "stylua" },
-    json = { "jq" },
-    python = { "isort", "black" },
-    rust = { "rustfmt" },
-    html = { "prettier" },
-    css = { "prettier" },
-    javascript = { "prettier" },
-    sh = { "shfmt" },
-    bash = { "shfmt" },
-    zsh = { "shfmt" },
-  },
-  formatters = {
-    prettier = {
-      prepend_args = { "--use-tabs", "--tab-width", vim.o.shiftwidth },
-    },
-  },
-})
-
 vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
 vim.api.nvim_create_autocmd("User", {
   group = "lualine_augroup",
@@ -69,3 +48,36 @@ vim.api.nvim_create_autocmd("User", {
 local flutter_path = os.getenv("FLUTTER_ROOT") and (os.getenv("FLUTTER_ROOT") .. "/bin/flutter")
   or "/opt/flutter/bin/flutter"
 require("flutter-tools").setup({ flutter_path = flutter_path })
+
+require("crates").setup({
+  lsp = {
+    enabled = true,
+    actions = true,
+    completion = true,
+    hover = true,
+  },
+  popup = {
+    autofocus = true,
+    border = "rounded",
+  },
+})
+
+require("fidget").setup()
+
+require("hlchunk").setup({
+  chunk = {
+    enable = true,
+    use_treesitter = true,
+    chars = {
+      horizontal_line = "─",
+      vertical_line = "│",
+      left_top = "╭",
+      left_bottom = "╰",
+      right_arrow = ">",
+    },
+    style = "#806d9c",
+  },
+  indent = {
+    enable = true,
+  },
+})

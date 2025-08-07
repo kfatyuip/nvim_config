@@ -1,3 +1,5 @@
+require("lsp-progress").setup()
+
 require("lualine").setup({
   options = {
     theme = "tokyonight",
