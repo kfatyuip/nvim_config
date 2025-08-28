@@ -113,3 +113,5 @@ map("n", "<leader>cf", crates.show_features_popup, { desc = "Show Crate Features
 map("n", "<leader>cd", crates.show_dependencies_popup, { desc = "Show Crate Dependencies" })
 map("n", "<leader>cu", crates.update_crate, { desc = "Update Crate" })
 map("n", "<leader>cU", crates.update_all_crates, { desc = "Update All Crates" })
+
+map("n", "<leader>gs", "<cmd>Gitsigns<cr>", { desc = "open Gitsigns" })
