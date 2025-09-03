@@ -171,3 +171,30 @@ require("plugins.treesitter")
 require("plugins.statusline")
 require("plugins.lsp")
 require("plugins.dap")
+
+vim.api.nvim_create_autocmd("DirChanged", {
+  pattern = "*",
+  callback = function()
+    local home = os.getenv("HOME")
+    local exrc_path = home .. "/.nvimexrc"
+    local current_dir = vim.fn.getcwd()
+
+    local file = io.open(exrc_path, "r")
+    if file then
+      for line in file:lines() do
+        local path = line:match("^%s*(.-)%s*$")
+        if path ~= "" then
+          path = path:gsub("^~", home)
+          path = vim.fn.resolve(path):gsub("/+$", "")
+          local resolved_current = vim.fn.resolve(current_dir):gsub("/+$", "")
+
+          if resolved_current == path then
+            vim.cmd("Doexrc")
+            break
+          end
+        end
+      end
+      file:close()
+    end
+  end,
+})
