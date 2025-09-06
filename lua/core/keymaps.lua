@@ -54,10 +54,16 @@ map("n", "<leader>cl", "<cmd>BufferCloseBuffersLeft<cr>", { desc = "close the le
 map("n", "<leader>cr", "<cmd>BufferCloseBuffersRight<cr>", { desc = "close the right buffers" })
 map("n", "<leader>x", "<cmd>bd<cr>", { desc = "delete buffer" })
 
+map("n", "<A-Up>", "<cmd>resize +2<cr>", { desc = "Increase height" })
+map("n", "<A-Down>", "<cmd>resize -2<cr>", { desc = "decrease height" })
+map("n", "<A-Left>", "<cmd>vertical resize -2<cr>", { desc = "decrease width" })
+map("n", "<A-Right>", "<cmd>vertical resize +2<cr>", { desc = "increase width" })
+
 map("n", "<leader>/", "gcc", { desc = "comment toggle", remap = true })
 map("v", "<leader>/", "gc", { desc = "comment toggle", remap = true })
 
 map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<cr>", { desc = "code action" })
+map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<cr>", { desc = "lsp rename" })
 
 -- map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "lsp diagnostic loclist" })
 map("n", "<leader>ds", "<cmd>Trouble diagnostics<cr>", { desc = "lsp diagnostic loclist" })
