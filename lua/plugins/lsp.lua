@@ -1,41 +1,47 @@
-local lspconfig = require("lspconfig")
-local function setup_server(server)
-  local config = {
-    on_init = function(client)
-      client.server_capabilities.workspace = { workspace_folders = true }
-    end,
-    capabilities = require("cmp_nvim_lsp").default_capabilities(),
-  }
-  local server_configs = {
-    clangd = { root_dir = lspconfig.util.root_pattern("compile_commands.json", "compile_flags.txt", ".git") },
-    lua_ls = {
-      settings = {
-        Lua = {
-          workspace = { checkThirdParty = false, library = { vim.env.VIMRUNTIME } },
-          codeLens = { enable = true },
-        },
-      },
-    },
-    rust_analyzer = {
-      settings = {
-        ["rust-analyzer"] = {
-          checkOnSave = os.getenv("checkOnSave") ~= nil,
-          cargo = {
-            buildScripts = { enable = os.getenv("buildScripts") ~= nil },
-            allFeatures = os.getenv("allFeatures") ~= nil,
-            loadOutDirsFromCheck = true,
-          },
-          procMacro = { enable = true },
-          server = { extraEnv = { RUST_SRC_PATH = "/usr/lib/rustlib/src/rust/library" } },
-        },
-      },
-    },
-  }
-  return vim.tbl_deep_extend("force", config, server_configs[server] or {})
-end
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-for _, lsp in ipairs(require("mason-lspconfig").get_installed_servers()) do
-  lspconfig[lsp].setup(setup_server(lsp))
+local server_configs = {
+  clangd = {
+    root_dir = function(bufnr, on_dir)
+      local util = require("lspconfig.util")
+      local root =
+        util.root_pattern("compile_commands.json", "compile_flags.txt", ".git")(vim.api.nvim_buf_get_name(bufnr))
+      if root then
+        on_dir(root)
+      end
+    end,
+    capabilities = capabilities,
+  },
+  lua_ls = {
+    settings = {
+      Lua = {
+        workspace = { checkThirdParty = false, library = { vim.env.VIMRUNTIME } },
+        codeLens = { enable = true },
+      },
+    },
+    capabilities = capabilities,
+  },
+  rust_analyzer = {
+    settings = {
+      ["rust-analyzer"] = {
+        checkOnSave = os.getenv("checkOnSave") ~= nil,
+        cargo = {
+          buildScripts = { enable = os.getenv("buildScripts") ~= nil },
+          allFeatures = os.getenv("allFeatures") ~= nil,
+          loadOutDirsFromCheck = true,
+        },
+        procMacro = { enable = true },
+        server = { extraEnv = { RUST_SRC_PATH = "/usr/lib/rustlib/src/rust/library" } },
+      },
+    },
+    capabilities = capabilities,
+  },
+}
+
+for _, server_name in ipairs(require("mason-lspconfig").get_installed_servers()) do
+  local config = server_configs[server_name] or { capabilities = capabilities }
+  vim.lsp.config(server_name, config)
+  vim.lsp.enable(server_name)
 end
 
 vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
