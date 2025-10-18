@@ -1,17 +1,6 @@
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 local server_configs = {
-  clangd = {
-    root_dir = function(bufnr, on_dir)
-      local util = require("lspconfig.util")
-      local root =
-        util.root_pattern("compile_commands.json", "compile_flags.txt", ".git")(vim.api.nvim_buf_get_name(bufnr))
-      if root then
-        on_dir(root)
-      end
-    end,
-    capabilities = capabilities,
-  },
   lua_ls = {
     settings = {
       Lua = {
