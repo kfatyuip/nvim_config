@@ -198,3 +198,5 @@ vim.api.nvim_create_autocmd("DirChanged", {
     end
   end,
 })
+
+vim.lsp.inlay_hint.enable(true)
