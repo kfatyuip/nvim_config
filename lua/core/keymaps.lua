@@ -72,6 +72,8 @@ map("n", "<leader>dS", "<cmd>Telescope diagnostics<cr>", { desc = "lsp diagnosti
 map("n", "<leader>fs", "<cmd>Trouble symbols<cr>", { desc = "list symbols" })
 map("n", "<leader>fS", "<cmd>Trouble lsp_document_symbols<cr>", { desc = "list document symbols" })
 
+map("n", "<leader>ss", "<cmd>Telescope lsp_document_symbols<cr>", { desc = "lsp document symbols" })
+
 map("n", "gd", "<cmd>Trouble lsp_definitions<cr>", { desc = "go to definition" })
 map("n", "gD", "<cmd>Telescope lsp_definitions<cr>", { desc = "go to definitions" })
 map("n", "gr", "<cmd>Trouble lsp_references<cr>", { desc = "go to references" })
