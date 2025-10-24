@@ -67,6 +67,7 @@ require("lazy").setup({
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
       "rafamadriz/friendly-snippets",
+      "lervag/vimtex",
     },
   },
   {
@@ -152,6 +153,18 @@ require("lazy").setup({
   {
     "saecki/crates.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
+  },
+  {
+    "lervag/vimtex",
+    ft = { "tex" },
+    config = function()
+      vim.g.vimtex_view_method = "zathura"
+      vim.g.vimtex_compiler_method = "latexmk"
+      vim.g.vimtex_quickfix_enabled = 1
+      vim.g.vimtex_view_general_viewer = "zathura"
+      vim.g.vimtex_view_general_options = "--unique file:@pdf\\#src:@line@tex"
+      vim.g.tex_flavor = "latex"
+    end,
   },
   "j-hui/fidget.nvim",
   {

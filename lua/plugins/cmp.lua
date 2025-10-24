@@ -79,6 +79,7 @@ cmp.setup({
   },
   sources = cmp.config.sources({
     { name = "nvim_lsp" },
+    { name = "vimtex" },
     { name = "buffer" },
     { name = "crates" },
     { name = "path" },
