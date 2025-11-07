@@ -1,18 +1,13 @@
-vim.opt["tabstop"] = 4
-vim.opt["shiftwidth"] = 4
-
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
 vim.opt.guifont = "JetBrainsMono Nerd Font:h10"
 vim.opt.termguicolors = true
-
 vim.opt.ignorecase = true
 vim.wo.number = true
-
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
-
 vim.opt.wildmenu = true
 vim.opt.wildmode = "full"
-
 vim.o.exrc = true
 vim.o.secure = true
 
@@ -42,19 +37,9 @@ require("lazy").setup({
   "williamboman/mason.nvim",
   "linrongbin16/lsp-progress.nvim",
   "stevearc/conform.nvim",
-  {
-    "nvim-telescope/telescope.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-  },
-  {
-    "nvim-tree/nvim-tree.lua",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-  },
-  {
-    "stevearc/oil.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    lazy = false,
-  },
+  { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
+  { "nvim-tree/nvim-tree.lua", dependencies = { "nvim-tree/nvim-web-devicons" } },
+  { "stevearc/oil.nvim", dependencies = { "nvim-tree/nvim-web-devicons" }, lazy = false },
   "williamboman/mason-lspconfig.nvim",
   {
     "hrsh7th/nvim-cmp",
@@ -67,15 +52,9 @@ require("lazy").setup({
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
       "rafamadriz/friendly-snippets",
-      "lervag/vimtex",
     },
   },
-  {
-    "nvim-lualine/lualine.nvim",
-    dependencies = {
-      "nvim-tree/nvim-web-devicons",
-    },
-  },
+  { "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } },
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
@@ -92,19 +71,12 @@ require("lazy").setup({
   {
     "akinsho/flutter-tools.nvim",
     ft = "dart",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "stevearc/dressing.nvim",
-    },
+    dependencies = { "nvim-lua/plenary.nvim", "stevearc/dressing.nvim" },
     config = true,
   },
-
   {
     "romgrk/barbar.nvim",
-    dependencies = {
-      "lewis6991/gitsigns.nvim",
-      "nvim-tree/nvim-web-devicons",
-    },
+    dependencies = { "lewis6991/gitsigns.nvim", "nvim-tree/nvim-web-devicons" },
     init = function()
       vim.g.barbar_auto_setup = true
     end,
@@ -123,23 +95,10 @@ require("lazy").setup({
       vim.cmd([[colorscheme tokyonight]])
     end,
   },
-  {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-  },
-  {
-    "shellRaining/hlchunk.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-  },
-  {
-    "folke/trouble.nvim",
-    opts = {},
-    cmd = "Trouble",
-  },
-  {
-    "akinsho/toggleterm.nvim",
-    version = "*",
-  },
+  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+  { "shellRaining/hlchunk.nvim", event = { "BufReadPre", "BufNewFile" } },
+  { "folke/trouble.nvim", opts = {}, cmd = "Trouble" },
+  { "akinsho/toggleterm.nvim", version = "*" },
   {
     "mfussenegger/nvim-dap",
     dependencies = {
@@ -147,16 +106,13 @@ require("lazy").setup({
       "nvim-neotest/nvim-nio",
       "nvim-telescope/telescope-dap.nvim",
       "theHamsta/nvim-dap-virtual-text",
-      "mfussenegger/nvim-dap-python",
+      { "mfussenegger/nvim-dap-python", ft = "python" },
     },
   },
-  {
-    "saecki/crates.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-  },
+  { "saecki/crates.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
   {
     "lervag/vimtex",
-    ft = { "tex" },
+    ft = "tex",
     config = function()
       vim.g.vimtex_view_method = "zathura"
       vim.g.vimtex_compiler_method = "latexmk"
@@ -184,30 +140,40 @@ require("plugins.treesitter")
 require("plugins.statusline")
 require("plugins.lsp")
 require("plugins.dap")
+require("plugins.fmt")
 
 vim.api.nvim_create_autocmd("DirChanged", {
   pattern = "*",
   callback = function()
-    local home = os.getenv("HOME")
+    local home = vim.uv.os_getenv("HOME")
+    if not home then
+      return
+    end
+
     local exrc_path = home .. "/.nvimexrc"
     local current_dir = vim.fn.getcwd()
+    local resolved_current = vim.fn.resolve(current_dir):gsub("/+$", "")
 
-    local file = io.open(exrc_path, "r")
-    if file then
-      for line in file:lines() do
-        local path = line:match("^%s*(.-)%s*$")
-        if path ~= "" then
-          path = path:gsub("^~", home)
-          path = vim.fn.resolve(path):gsub("/+$", "")
-          local resolved_current = vim.fn.resolve(current_dir):gsub("/+$", "")
+    if vim.fn.filereadable(exrc_path) == 0 then
+      io.open(exrc_path, "w"):close()
+      return
+    end
 
-          if resolved_current == path then
-            vim.cmd("Doexrc")
-            break
-          end
+    local lines = vim.fn.readfile(exrc_path, "", 1000)
+    if vim.v.errno then
+      return
+    end
+
+    for _, line in ipairs(lines) do
+      local path = line:match("^%s*(.-)%s*$")
+      if path ~= "" then
+        path = path:gsub("^~", home)
+        local resolved_path = vim.fn.resolve(path):gsub("/+$", "")
+        if resolved_current == resolved_path then
+          vim.cmd("Doexrc")
+          break
         end
       end
-      file:close()
     end
   end,
 })

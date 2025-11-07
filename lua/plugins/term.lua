@@ -26,18 +26,14 @@ local lazygit = Terminal:new({ cmd = "lazygit", direction = "float", hidden = tr
 local python = Terminal:new({ cmd = "python", direction = "float", hidden = true })
 local htop = Terminal:new({ cmd = "htop", direction = "float", hidden = true })
 
-function _lazygit_toggle()
+_G._lazygit_toggle = function()
   lazygit:toggle()
 end
 
-function _python_toggle()
+_G._python_toggle = function()
   python:toggle()
 end
 
-function _htop_toggle()
+_G._htop_toggle = function()
   htop:toggle()
 end
-
-vim.api.nvim_set_keymap("n", "<leader>gi", "<cmd>lua _lazygit_toggle()<cr>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>py", "<cmd>lua _python_toggle()<cr>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>ht", "<cmd>lua _htop_toggle()<cr>", { noremap = true, silent = true })
