@@ -1,4 +1,3 @@
-local conform = require("conform")
 local default_config = {
   formatters_by_ft = {
     lua = { "stylua" },
@@ -30,19 +29,34 @@ _G.reset_conform_config = function()
   current_config = vim.deepcopy(default_config)
 end
 
-vim.api.nvim_create_autocmd("BufReadPost", {
-  pattern = "*",
-  once = true,
-  callback = function()
-    local file = vim.fn.expand("<afile>:p")
-    local ft = vim.bo.filetype
+return {
+  "stevearc/conform.nvim",
+  config = function()
+    local conform = require("conform")
+    vim.api.nvim_create_autocmd("BufReadPost", {
+      pattern = "*",
+      once = true,
+      callback = function()
+        local file = vim.fn.expand("<afile>:p")
+        local ft = vim.bo.filetype
 
-    if vim.bo.buftype ~= "" or vim.fn.filereadable(file) ~= 1 or ft == "" then
-      return
-    end
+        if vim.bo.buftype ~= "" or vim.fn.filereadable(file) ~= 1 or ft == "" then
+          return
+        end
 
-    vim.schedule(function()
-      conform.setup(current_config)
-    end)
+        vim.schedule(function()
+          conform.setup(current_config)
+        end)
+      end,
+    })
   end,
-})
+  keys = {
+    {
+      "<leader>fm",
+      function()
+        require("conform").format({ lsp_fallback = true, async = true })
+      end,
+      desc = "Format buffer",
+    },
+  },
+}

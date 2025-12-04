@@ -8,13 +8,11 @@ end
 
 vim.keymap.set("n", ";", ":", { desc = "enter command mode" })
 
+vim.keymap.set("n", "<leader>/", "gcc", { desc = "comment toggle", remap = true, silent = true })
+
 map("n", "<C-n>", "NvimTreeToggle", { desc = "nvimtree toggle window", silent = true })
 map("n", "<leader>e", "NvimTreeFocus", { desc = "nvimtree focus window", silent = true })
 map("n", "-", "Oil --float", { desc = "open parent directory", silent = true })
-
-map("n", "<leader>fm", function()
-  require("conform").format({ lsp_fallback = true })
-end, { desc = "format files", silent = true })
 
 map("n", "<leader>lz", "Lazy", { desc = "open Lazy menu", silent = true })
 
@@ -39,7 +37,6 @@ map("n", "<leader>cm", "Telescope git_commits", { desc = "telescope git commits"
 map("n", "<leader>st", "Telescope git_status", { desc = "telescope git status", silent = true })
 map("n", "<leader>ff", "Telescope find_files", { desc = "telescope find files", silent = true })
 map("n", "<leader>jl", "Telescope jumplist", { desc = "telescope jumplist", silent = true })
-map("n", "<leader>ft", require("telescope").extensions.flutter.commands, { desc = "open flutter tools", silent = true })
 
 map("n", "<S-Tab>", "BufferPrevious", { desc = "move to previous buffer", silent = true })
 map("n", "<Tab>", "BufferNext", { desc = "move to next buffer", silent = true })
@@ -74,9 +71,6 @@ map("n", "<A-Down>", "resize -2", { desc = "decrease height", silent = true })
 map("n", "<A-Left>", "vertical resize -2", { desc = "decrease width", silent = true })
 map("n", "<A-Right>", "vertical resize +2", { desc = "increase width", silent = true })
 
-map("n", "<leader>/", "gcc", { desc = "comment toggle", remap = true, silent = true })
-map("v", "<leader>/", "gc", { desc = "comment toggle", remap = true, silent = true })
-
 map("n", "<leader>ca", "lua vim.lsp.buf.code_action()", { desc = "code action", silent = true })
 map("n", "<leader>rn", "lua vim.lsp.buf.rename()", { desc = "lsp rename", silent = true })
 
@@ -94,6 +88,8 @@ map("n", "gr", "Trouble lsp_references", { desc = "go to references", silent = t
 map("n", "gR", "Telescope lsp_references", { desc = "go to references", silent = true })
 map("n", "gi", "Telescope lsp_implementations", { desc = "go to implementations", silent = true })
 
+map("n", "<leader>ft", "Telescope flutter commands", { desc = "open flutter tools", silent = true })
+
 map("n", "<leader>tn", "tabnew", { desc = "open a new tab", silent = true })
 
 map("n", "<leader>ln", "InlayHintToggle", { desc = "inlay hint toggle", silent = true })
@@ -103,36 +99,3 @@ if vim.g.neovide then
   map({ "n", "v" }, "<C-->", "lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1", { silent = true })
   map({ "n", "v" }, "<C-0>", "lua vim.g.neovide_scale_factor = 1", { silent = true })
 end
-
-local dap = require("dap")
-map("n", "<F5>", dap.continue, { desc = "Continue", silent = true })
-map("n", "<F10>", dap.step_over, { desc = "Step Over", silent = true })
-map("n", "<F11>", dap.step_into, { desc = "Step Into", silent = true })
-map("n", "<F12>", dap.step_out, { desc = "Step Out", silent = true })
-map("n", "<leader>db", dap.toggle_breakpoint, { desc = "Toggle Breakpoint", silent = true })
-map("n", "<leader>dB", function()
-  dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
-end, { desc = "Conditional Breakpoint", silent = true })
-map("n", "<leader>dr", dap.repl.open, { desc = "Open REPL", silent = true })
-map("n", "<leader>dl", dap.run_last, { desc = "Run Last", silent = true })
-map({ "n", "v" }, "<leader>dh", require("dap.ui.widgets").hover, { desc = "Hover", silent = true })
-map({ "n", "v" }, "<leader>dp", require("dap.ui.widgets").preview, { desc = "Preview", silent = true })
-map("n", "<leader>dlp", function()
-  dap.set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
-end, { desc = "Log Point", silent = true })
-map("n", "<leader>de", dap.terminate, { desc = "Terminate", silent = true })
-
-map("n", "<leader>tdb", "Telescope dap list_breakpoints", { desc = "List Breakpoints", silent = true })
-map("n", "<leader>tdc", "Telescope dap commands", { desc = "Commands", silent = true })
-map("n", "<leader>tds", "Telescope dap configurations", { desc = "Configurations", silent = true })
-map("n", "<leader>tdv", "Telescope dap variables", { desc = "Variables", silent = true })
-map("n", "<leader>tdf", "Telescope dap frames", { desc = "Frames", silent = true })
-
-local crates = require("crates")
-map("n", "<leader>cv", crates.show_versions_popup, { desc = "Show Crate Versions", silent = true })
-map("n", "<leader>cf", crates.show_features_popup, { desc = "Show Crate Features", silent = true })
-map("n", "<leader>cd", crates.show_dependencies_popup, { desc = "Show Crate Dependencies", silent = true })
-map("n", "<leader>cu", crates.update_crate, { desc = "Update Crate", silent = true })
-map("n", "<leader>cU", crates.update_all_crates, { desc = "Update All Crates", silent = true })
-
-map("n", "<leader>gs", "Gitsigns", { desc = "open Gitsigns", silent = true })
