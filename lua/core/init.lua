@@ -34,113 +34,14 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  "williamboman/mason.nvim",
-  "linrongbin16/lsp-progress.nvim",
-  "stevearc/conform.nvim",
-  { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
-  { "nvim-tree/nvim-tree.lua", dependencies = { "nvim-tree/nvim-web-devicons" } },
-  { "stevearc/oil.nvim", dependencies = { "nvim-tree/nvim-web-devicons" }, lazy = false },
-  "williamboman/mason-lspconfig.nvim",
-  {
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-      "neovim/nvim-lspconfig",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-cmdline",
-      "L3MON4D3/LuaSnip",
-      "saadparwaiz1/cmp_luasnip",
-      "rafamadriz/friendly-snippets",
-    },
-  },
-  { "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } },
-  {
-    "folke/which-key.nvim",
-    event = "VeryLazy",
-    keys = {
-      {
-        "<leader>?",
-        function()
-          require("which-key").show({ global = false })
-        end,
-        desc = "Buffer Local Keymaps (which-key)",
-      },
-    },
-  },
-  {
-    "akinsho/flutter-tools.nvim",
-    ft = "dart",
-    dependencies = { "nvim-lua/plenary.nvim", "stevearc/dressing.nvim" },
-    config = true,
-  },
-  {
-    "romgrk/barbar.nvim",
-    dependencies = { "lewis6991/gitsigns.nvim", "nvim-tree/nvim-web-devicons" },
-    init = function()
-      vim.g.barbar_auto_setup = true
-    end,
-  },
-  {
-    "folke/tokyonight.nvim",
-    lazy = false,
-    style = "storm",
-    terminal_colors = true,
-    transparent = true,
-    styles = {
-      sidebars = "transparent",
-      floats = "transparent",
-    },
-    config = function()
-      vim.cmd([[colorscheme tokyonight]])
-    end,
-  },
-  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
-  { "shellRaining/hlchunk.nvim", event = { "BufReadPre", "BufNewFile" } },
-  { "folke/trouble.nvim", opts = {}, cmd = "Trouble" },
-  { "akinsho/toggleterm.nvim", version = "*" },
-  {
-    "mfussenegger/nvim-dap",
-    dependencies = {
-      "rcarriga/nvim-dap-ui",
-      "nvim-neotest/nvim-nio",
-      "nvim-telescope/telescope-dap.nvim",
-      "theHamsta/nvim-dap-virtual-text",
-      { "mfussenegger/nvim-dap-python", ft = "python" },
-    },
-  },
-  { "saecki/crates.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
-  {
-    "lervag/vimtex",
-    ft = "tex",
-    config = function()
-      vim.g.vimtex_view_method = "zathura"
-      vim.g.vimtex_compiler_method = "latexmk"
-      vim.g.vimtex_quickfix_enabled = 1
-      vim.g.vimtex_view_general_viewer = "zathura"
-      vim.g.vimtex_view_general_options = "--unique file:@pdf\\#src:@line@tex"
-      vim.g.tex_flavor = "latex"
-    end,
-  },
-  "j-hui/fidget.nvim",
-  {
-    "MeanderingProgrammer/render-markdown.nvim",
-    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
-  },
-  "github/copilot.vim",
+  { import = "plugins.editor" },
+  { import = "plugins.lsp" },
+  { import = "plugins.ui" },
+  { import = "plugins" },
 })
 
 require("core.keymaps")
 require("core.cmd")
-
-require("plugins.tree")
-require("plugins.cmp")
-require("plugins.term")
-require("plugins.treesitter")
-require("plugins.statusline")
-require("plugins.lsp")
-require("plugins.dap")
-require("plugins.fmt")
 
 vim.api.nvim_create_autocmd("DirChanged", {
   pattern = "*",
