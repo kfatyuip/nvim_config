@@ -66,7 +66,7 @@ map("n", "<leader>cl", "BufferCloseBuffersLeft", { desc = "close the left buffer
 map("n", "<leader>cr", "BufferCloseBuffersRight", { desc = "close the right buffers", silent = true })
 map("n", "<leader>x", "bd", { desc = "delete buffer", silent = true })
 
-map("n", "<A-Up>", "resize +2", { desc = "Increase height", silent = true })
+map("n", "<A-Up>", "resize +2", { desc = "increase height", silent = true })
 map("n", "<A-Down>", "resize -2", { desc = "decrease height", silent = true })
 map("n", "<A-Left>", "vertical resize -2", { desc = "decrease width", silent = true })
 map("n", "<A-Right>", "vertical resize +2", { desc = "increase width", silent = true })

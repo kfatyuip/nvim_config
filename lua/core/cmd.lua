@@ -3,11 +3,11 @@ local cmd = vim.api.nvim_create_user_command
 cmd("Config", function()
   vim.cmd("cd " .. vim.fn.stdpath("config"))
   vim.cmd("Doexrc")
-end, { desc = "change pwd to neovim config directory" })
+end, { desc = "Change pwd to neovim config directory" })
 
 cmd("InlayHintToggle", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-end, { desc = "inlay hint toggle for lsp server" })
+end, { desc = "InlayHint toggle for lsp server" })
 
 cmd("Doexrc", function()
   local files = { ".nvim.lua", ".nvimrc", ".exrc" }
