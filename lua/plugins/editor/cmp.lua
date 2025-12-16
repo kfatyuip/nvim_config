@@ -17,6 +17,8 @@ return {
       local luasnip = require("luasnip")
       luasnip.setup({ history = true, delete_check_events = "TextChanged" })
 
+      vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+
       local cmp_kinds = {
         Text = "",
         Method = "󰆧",
@@ -77,8 +79,15 @@ return {
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
         }),
         formatting = {
-          format = function(_, vim_item)
-            vim_item.kind = string.format("%s %s", cmp_kinds[vim_item.kind] or "", vim_item.kind)
+          format = function(entry, vim_item)
+            local icon = cmp_kinds[vim_item.kind]
+            vim_item.kind = string.format("%s %s", icon, vim_item.kind)
+
+            if entry.source.name == "copilot" then
+              vim_item.kind = " Copilot"
+              vim_item.kind_hl_group = "CmpItemKindCopilot"
+            end
+
             vim_item.menu = ({
               buffer = "[Buf]",
               nvim_lsp = "[LSP]",
@@ -86,12 +95,15 @@ return {
               nvim_lua = "[Lua]",
               path = "[Path]",
               crates = "[Crate]",
-            })[_.source.name]
+              copilot = "[Copilot]",
+            })[entry.source.name] or ("[" .. entry.source.name .. "]")
+
             return vim_item
           end,
         },
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
+          { name = "copilot" },
           { name = "vimtex" },
           { name = "buffer" },
           { name = "crates" },
@@ -105,7 +117,6 @@ return {
         sources = { { name = "buffer" } },
         view = { entries = { name = "wildmenu", separator = "|" } },
       })
-
       cmp.setup.cmdline(":", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
