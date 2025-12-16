@@ -16,11 +16,6 @@ map("n", "-", "Oil --float", { desc = "open parent directory", silent = true })
 
 map("n", "<leader>lz", "Lazy", { desc = "open Lazy menu", silent = true })
 
-map("n", "<leader>fl", "ToggleTerm direction=float", { desc = "open a floating terminal", silent = true })
-map("n", "<leader>gi", "lua _lazygit_toggle()", { desc = "open lazygit", silent = true })
-map("n", "<leader>py", "lua _python_toggle()", { desc = "open python", silent = true })
-map("n", "<leader>ht", "lua _htop_toggle()", { desc = "open htop", silent = true })
-
 map("n", "<leader>tl", "Telescope", { desc = "open telescope", silent = true })
 map("n", "<leader>fw", "Telescope live_grep", { desc = "telescope live grep", silent = true })
 map("n", "<leader>fb", "Telescope buffers", { desc = "telescope find buffers", silent = true })
@@ -66,7 +61,7 @@ map("n", "<leader>cl", "BufferCloseBuffersLeft", { desc = "close the left buffer
 map("n", "<leader>cr", "BufferCloseBuffersRight", { desc = "close the right buffers", silent = true })
 map("n", "<leader>x", "bd", { desc = "delete buffer", silent = true })
 
-map("n", "<A-Up>", "resize +2", { desc = "Increase height", silent = true })
+map("n", "<A-Up>", "resize +2", { desc = "increase height", silent = true })
 map("n", "<A-Down>", "resize -2", { desc = "decrease height", silent = true })
 map("n", "<A-Left>", "vertical resize -2", { desc = "decrease width", silent = true })
 map("n", "<A-Right>", "vertical resize +2", { desc = "increase width", silent = true })

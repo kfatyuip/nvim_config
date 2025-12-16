@@ -29,7 +29,12 @@ return {
                 loadOutDirsFromCheck = true,
               },
               procMacro = { enable = true },
-              server = { extraEnv = { RUST_SRC_PATH = "/usr/lib/rustlib/src/rust/library" } },
+              server = {
+                extraEnv = {
+                  RUST_SRC_PATH = vim.fn.trim(vim.fn.system("rustc --print sysroot"))
+                    .. "/lib/rustlib/src/rust/library",
+                },
+              },
             },
           },
           capabilities = capabilities,

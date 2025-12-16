@@ -227,6 +227,41 @@ return {
         end,
         desc = "Log Point",
       },
+      {
+        "<leader>du",
+        function()
+          require("dap").up()
+        end,
+        desc = "Stack Up",
+      },
+      {
+        "<leader>dd",
+        function()
+          require("dap").down()
+        end,
+        desc = "Stack Down",
+      },
+      {
+        "<leader>dk",
+        function()
+          require("dap").run_to_cursor()
+        end,
+        desc = "Run to Cursor",
+      },
+      {
+        "<leader>do",
+        function()
+          require("dapui").open()
+        end,
+        desc = "Open DAP UI",
+      },
+      {
+        "<leader>dc",
+        function()
+          require("dapui").close()
+        end,
+        desc = "Close DAP UI",
+      },
 
       { "<leader>tdb", "<cmd>Telescope dap list_breakpoints<CR>", desc = "List Breakpoints" },
       { "<leader>tdc", "<cmd>Telescope dap commands<CR>", desc = "Commands" },
