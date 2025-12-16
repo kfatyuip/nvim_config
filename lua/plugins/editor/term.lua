@@ -1,3 +1,27 @@
+local terminals = {
+  gi = { cmd = "lazygit", desc = "Toggle LazyGit" },
+  py = { cmd = "python", desc = "Toggle Python REPL" },
+  ht = { cmd = "htop", desc = "Toggle htop" },
+  fl = { cmd = nil, desc = "Open a floating terminal" },
+}
+
+local keys = {}
+for prefix, info in pairs(terminals) do
+  table.insert(keys, {
+    "<leader>" .. prefix,
+    function()
+      require("toggleterm.terminal").Terminal
+        :new({
+          cmd = info.cmd,
+          direction = "float",
+          hidden = true,
+        })
+        :toggle()
+    end,
+    desc = info.desc,
+  })
+end
+
 return {
   {
     "akinsho/toggleterm.nvim",
@@ -25,22 +49,7 @@ return {
           },
         },
       })
-      local Terminal = require("toggleterm.terminal").Terminal
-      local lazygit = Terminal:new({ cmd = "lazygit", direction = "float", hidden = true })
-      local python = Terminal:new({ cmd = "python", direction = "float", hidden = true })
-      local htop = Terminal:new({ cmd = "htop", direction = "float", hidden = true })
-
-      _G._lazygit_toggle = function()
-        lazygit:toggle()
-      end
-
-      _G._python_toggle = function()
-        python:toggle()
-      end
-
-      _G._htop_toggle = function()
-        htop:toggle()
-      end
     end,
+    keys = keys,
   },
 }
