@@ -31,32 +31,18 @@ end
 
 return {
   "stevearc/conform.nvim",
-  config = function()
-    local conform = require("conform")
-    vim.api.nvim_create_autocmd("BufReadPost", {
-      pattern = "*",
-      once = true,
-      callback = function()
-        local file = vim.fn.expand("<afile>:p")
-        local ft = vim.bo.filetype
-
-        if vim.bo.buftype ~= "" or vim.fn.filereadable(file) ~= 1 or ft == "" then
-          return
-        end
-
-        vim.schedule(function()
-          conform.setup(current_config)
-        end)
-      end,
-    })
-  end,
+  event = { "BufWritePre" },
+  opts = {
+    formatters_by_ft = default_config.formatters_by_ft,
+    notify_on_error = true,
+  },
   keys = {
     {
       "<leader>fm",
       function()
         require("conform").format({ lsp_fallback = true, async = true })
       end,
-      desc = "Format buffer",
+      desc = "Format",
     },
   },
 }
