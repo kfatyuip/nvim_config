@@ -12,7 +12,6 @@ vim.keymap.set("n", "<leader>/", "gcc", { desc = "comment toggle", remap = true,
 
 map("n", "<C-n>", "NvimTreeToggle", { desc = "nvimtree toggle window", silent = true })
 map("n", "<leader>e", "NvimTreeFocus", { desc = "nvimtree focus window", silent = true })
-map("n", "-", "Oil --float", { desc = "open parent directory", silent = true })
 
 map("n", "<leader>lz", "Lazy", { desc = "open Lazy menu", silent = true })
 
@@ -91,6 +90,6 @@ map("n", "<leader>ln", "InlayHintToggle", { desc = "inlay hint toggle", silent =
 
 if vim.g.neovide then
   map({ "n", "v" }, "<C-+>", "lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1", { silent = true })
-  map({ "n", "v" }, "<C-->", "lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1", { silent = true })
+  map({ "n", "v" }, "<C-_>", "lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1", { silent = true })
   map({ "n", "v" }, "<C-0>", "lua vim.g.neovide_scale_factor = 1", { silent = true })
 end

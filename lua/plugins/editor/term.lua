@@ -26,7 +26,7 @@ return {
   {
     "akinsho/toggleterm.nvim",
     version = "*",
-	event = "VeryLazy",
+    event = "VeryLazy",
     config = function()
       require("toggleterm").setup({
         size = 20,

@@ -2,6 +2,7 @@ return {
   { "linrongbin16/lsp-progress.nvim", config = true },
   {
     "nvim-lualine/lualine.nvim",
+    event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       require("lualine").setup({
