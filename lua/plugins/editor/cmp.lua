@@ -1,3 +1,31 @@
+local cmp_kinds = {
+  Text = "",
+  Method = "󰆧",
+  Function = "󰊕",
+  Constructor = "",
+  Field = "󰇽",
+  Variable = "󰂡",
+  Class = "󰠱",
+  Interface = "",
+  Module = "",
+  Property = "󰜢",
+  Unit = "",
+  Value = "󰎠",
+  Enum = "",
+  Keyword = "󰌋",
+  Snippet = "",
+  Color = "󰏘",
+  File = "󰈙",
+  Reference = "",
+  Folder = "󰉋",
+  EnumMember = "",
+  Constant = "󰏿",
+  Struct = "",
+  Event = "",
+  Operator = "󰆕",
+  TypeParameter = "󰅲",
+}
+
 return {
   {
     "hrsh7th/nvim-cmp",
@@ -13,40 +41,12 @@ return {
     },
     config = function()
       local cmp = require("cmp")
+      local luasnip = require("luasnip")
       require("luasnip.loaders.from_vscode").lazy_load()
       require("luasnip").filetype_extend("dart", { "flutter" })
-      local luasnip = require("luasnip")
-      luasnip.setup({ history = true, delete_check_events = "TextChanged" })
+      luasnip.config.setup({ history = true, delete_check_events = "TextChanged" })
 
       vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
-
-      local cmp_kinds = {
-        Text = "",
-        Method = "󰆧",
-        Function = "󰊕",
-        Constructor = "",
-        Field = "󰇽",
-        Variable = "󰂡",
-        Class = "󰠱",
-        Interface = "",
-        Module = "",
-        Property = "󰜢",
-        Unit = "",
-        Value = "󰎠",
-        Enum = "",
-        Keyword = "󰌋",
-        Snippet = "",
-        Color = "󰏘",
-        File = "󰈙",
-        Reference = "",
-        Folder = "󰉋",
-        EnumMember = "",
-        Constant = "󰏿",
-        Struct = "",
-        Event = "",
-        Operator = "󰆕",
-        TypeParameter = "󰅲",
-      }
 
       cmp.setup({
         snippet = {
@@ -81,7 +81,7 @@ return {
         }),
         formatting = {
           format = function(entry, vim_item)
-            local icon = cmp_kinds[vim_item.kind]
+            local icon = cmp_kinds[vim_item.kind] or ""
             vim_item.kind = string.format("%s %s", icon, vim_item.kind)
 
             if entry.source.name == "copilot" then
@@ -90,26 +90,27 @@ return {
             end
 
             vim_item.menu = ({
-              buffer = "[Buf]",
               nvim_lsp = "[LSP]",
               luasnip = "[Snip]",
-              nvim_lua = "[Lua]",
-              path = "[Path]",
-              crates = "[Crate]",
               copilot = "[Copilot]",
-            })[entry.source.name] or ("[" .. entry.source.name .. "]")
+              buffer = "[Buf]",
+              path = "[Path]",
+              vimtex = "[Tex]",
+              crates = "[Crate]",
+            })[entry.source.name] or string.format("[%s]", entry.source.name)
 
             return vim_item
           end,
         },
         sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "copilot" },
-          { name = "vimtex" },
-          { name = "buffer" },
-          { name = "crates" },
-          { name = "path" },
-          { name = "luasnip" },
+          { name = "nvim_lsp", priority = 1000 },
+          { name = "luasnip", priority = 750 },
+          { name = "copilot", priority = 500 },
+        }, {
+          { name = "path", priority = 250 },
+          { name = "vimtex", priority = 250 },
+          { name = "crates", priority = 250 },
+          { name = "buffer", priority = 100, keyword_length = 3 },
         }),
       })
 

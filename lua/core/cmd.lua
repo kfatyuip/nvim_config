@@ -15,7 +15,7 @@ cmd("Doexrc", function()
     if vim.fn.filereadable(f) == 1 then
       local ok, err = pcall(vim.cmd.source, f)
       if not ok then
-        vim.notify("Failed to source " .. f .. ": " .. err, vim.log.levels.ERROR)
+        vim.notify("Config Error (" .. f .. "): " .. err, vim.log.levels.WARN)
       end
       break
     end

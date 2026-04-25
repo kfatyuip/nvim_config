@@ -32,8 +32,9 @@ end
 return {
   "stevearc/conform.nvim",
   event = { "BufWritePre" },
+  cmd = { "ConformInfo" },
   opts = {
-    formatters_by_ft = default_config.formatters_by_ft,
+    formatters_by_ft = current_config.formatters_by_ft,
     notify_on_error = true,
   },
   keys = {

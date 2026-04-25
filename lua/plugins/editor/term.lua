@@ -2,7 +2,6 @@ local terminals = {
   gi = { cmd = "lazygit", desc = "Toggle LazyGit" },
   py = { cmd = "python", desc = "Toggle Python REPL" },
   ht = { cmd = "htop", desc = "Toggle htop" },
-  fl = { cmd = nil, desc = "Open a floating terminal" },
 }
 
 local keys = {}
@@ -51,6 +50,6 @@ return {
         },
       })
     end,
-    keys = keys,
+    keys = vim.tbl_deep_extend("force", keys, { { "<leader>fl", "<cmd>ToggleTerm direction=float<cr>" } }),
   },
 }
