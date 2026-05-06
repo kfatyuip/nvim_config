@@ -3,7 +3,7 @@ vim.opt.shiftwidth = 4
 vim.opt.guifont = "JetBrainsMono Nerd Font:h10"
 vim.opt.termguicolors = true
 vim.opt.ignorecase = true
-vim.wo.number = true
+vim.opt.number = true
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 vim.opt.wildmenu = true
@@ -42,41 +42,6 @@ require("lazy").setup({
 
 require("core.keymaps")
 require("core.cmd")
+require("core.autocmd")
 
-vim.api.nvim_create_autocmd("DirChanged", {
-  pattern = "*",
-  callback = function()
-    local home = vim.uv.os_getenv("HOME")
-    if not home then
-      return
-    end
-
-    local exrc_path = home .. "/.nvimexrc"
-    local current_dir = vim.fn.getcwd()
-    local resolved_current = vim.fn.resolve(current_dir):gsub("/+$", "")
-
-    if vim.fn.filereadable(exrc_path) == 0 then
-      io.open(exrc_path, "w"):close()
-      return
-    end
-
-    local lines = vim.fn.readfile(exrc_path, "", 1000)
-    if vim.v.errno then
-      return
-    end
-
-    for _, line in ipairs(lines) do
-      local path = line:match("^%s*(.-)%s*$")
-      if path ~= "" then
-        path = path:gsub("^~", home)
-        local resolved_path = vim.fn.resolve(path):gsub("/+$", "")
-        if resolved_current == resolved_path then
-          vim.cmd("Doexrc")
-          break
-        end
-      end
-    end
-  end,
-})
-
-vim.lsp.inlay_hint.enable(true)
+require("vim._core.ui2").enable({ enable = true })

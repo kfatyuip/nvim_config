@@ -2,11 +2,12 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     event = { "BufReadPost", "BufNewFile" },
+    branch = "main",
     build = ":TSUpdate",
     config = function()
-      local configs = require("nvim-treesitter.configs")
+      local config = require("nvim-treesitter.config")
 
-      configs.setup({
+      config.setup({
         highlight = {
           enable = true,
         },
