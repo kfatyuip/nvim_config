@@ -14,26 +14,12 @@ local default_config = {
 }
 local current_config = vim.deepcopy(default_config)
 
-_G.merge_conform_config = function(content)
-  if type(content) ~= "table" then
-    return
-  end
-  current_config = vim.tbl_deep_extend("force", current_config, content)
-end
-
-_G.clear_conform_config = function()
-  current_config = {}
-end
-
-_G.reset_conform_config = function()
-  current_config = vim.deepcopy(default_config)
-end
-
-return {
+local M = {
   "stevearc/conform.nvim",
   event = { "BufWritePre" },
+  cmd = { "ConformInfo" },
   opts = {
-    formatters_by_ft = default_config.formatters_by_ft,
+    formatters_by_ft = current_config.formatters_by_ft,
     notify_on_error = true,
   },
   keys = {
@@ -46,3 +32,20 @@ return {
     },
   },
 }
+
+function M.merge_conform_config(content)
+  if type(content) ~= "table" then
+    return
+  end
+  current_config = vim.tbl_deep_extend("force", current_config, content)
+end
+
+function M.clear_conform_config()
+  current_config = {}
+end
+
+function M.reset_conform_config()
+  current_config = vim.deepcopy(default_config)
+end
+
+return M
