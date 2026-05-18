@@ -8,7 +8,8 @@ end
 
 vim.keymap.set("n", ";", ":", { desc = "enter command mode" })
 
-vim.keymap.set("n", "<leader>/", "gcc", { desc = "comment toggle", remap = true, silent = true })
+vim.keymap.set("v", "<leader>/", "gc", { desc = "comment toggle", remap = true, silent = true })
+vim.keymap.set("n", "<leader>/", "gcc", { desc = "comment toggle line", remap = true, silent = true })
 
 map("n", "<C-n>", "NvimTreeToggle", { desc = "nvimtree toggle window", silent = true })
 map("n", "<leader>e", "NvimTreeFocus", { desc = "nvimtree focus window", silent = true })

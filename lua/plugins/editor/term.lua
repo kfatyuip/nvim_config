@@ -1,32 +1,13 @@
 local terminals = {
-  gi = { cmd = "lazygit", desc = "Toggle LazyGit" },
+  lg = { cmd = "lazygit", desc = "Toggle LazyGit" },
   py = { cmd = "python", desc = "Toggle Python REPL" },
   ht = { cmd = "htop", desc = "Toggle htop" },
-  fl = { cmd = nil, desc = "Open a floating terminal" },
 }
-
-local keys = {}
-for prefix, info in pairs(terminals) do
-  table.insert(keys, {
-    "<leader>" .. prefix,
-    function()
-      require("toggleterm.terminal").Terminal
-        :new({
-          cmd = info.cmd,
-          direction = "float",
-          hidden = true,
-        })
-        :toggle()
-    end,
-    desc = info.desc,
-  })
-end
 
 return {
   {
     "akinsho/toggleterm.nvim",
     version = "*",
-    event = "VeryLazy",
     config = function()
       require("toggleterm").setup({
         size = 20,
@@ -41,6 +22,7 @@ return {
         shade_terminals = true,
         shade_factor = 2,
         start_in_insert = true,
+        persist_mode = true,
         float_opts = {
           border = "curved",
           winblend = 0,
@@ -50,7 +32,19 @@ return {
           },
         },
       })
+
+      vim.keymap.set("n", "<leader>fl", "<cmd>ToggleTerm direction=float<cr>")
+      for prefix, info in pairs(terminals) do
+        vim.keymap.set("n", "<leader>" .. prefix, function()
+          require("toggleterm.terminal").Terminal
+            :new({
+              cmd = info.cmd,
+              direction = "float",
+              hidden = true,
+            })
+            :toggle()
+        end, { desc = info.desc })
+      end
     end,
-    keys = keys,
   },
 }

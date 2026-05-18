@@ -15,7 +15,7 @@ cmd("Doexrc", function()
     if vim.fn.filereadable(f) == 1 then
       local ok, err = pcall(vim.cmd.source, f)
       if not ok then
-        vim.notify("Failed to source " .. f .. ": " .. err, vim.log.levels.ERROR)
+        vim.notify("Config Error (" .. f .. "): " .. err, vim.log.levels.WARN)
       end
       break
     end
@@ -23,11 +23,11 @@ cmd("Doexrc", function()
 end, { desc = "Load local config files" })
 
 cmd("ConformConfigClear", function()
-  clear_conform_config()
+  require("plugins.editor.fmt").clear_conform_config()
   vim.notify("Conform config cleared", vim.log.levels.INFO)
 end, { desc = "Clear conform.nvim config" })
 
 cmd("ConformConfigReset", function()
-  reset_conform_config()
+  require("plugins.editor.fmt").reset_conform_config()
   vim.notify("Conform config reset", vim.log.levels.INFO)
 end, { desc = "Reset conform.nvim config" })
