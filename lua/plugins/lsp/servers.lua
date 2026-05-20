@@ -32,14 +32,22 @@ local servers = {
     },
     capabilities = capabilities,
   },
-  pyright = {
+
+  basedpyright = {
     settings = {
       python = {
-        venvPath = ".",
-        pythonPath = "./.venv/bin/python",
+        pythonPath = vim.fn.exepath("python"),
+      },
+      basedpyright = {
+        analysis = {
+          typeCheckingMode = "recommended",
+          diagnosticMode = "openFilesOnly",
+          inlayHints = {
+            callArgumentNames = true,
+          },
+        },
       },
     },
-    capabilities = capabilities,
   },
 }
 
