@@ -1,6 +1,17 @@
 return {
   { "williamboman/mason.nvim", config = true },
-  { "j-hui/fidget.nvim", config = true },
+  {
+    "j-hui/fidget.nvim",
+    config = function()
+      require("fidget").setup({
+        notification = {
+          window = {
+            avoid = { "NvimTree" },
+          },
+        },
+      })
+    end,
+  },
   {
     "shellRaining/hlchunk.nvim",
     event = { "BufReadPre", "BufNewFile" },
