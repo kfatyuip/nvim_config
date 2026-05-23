@@ -2,14 +2,8 @@ return {
   "folke/tokyonight.nvim",
   lazy = false,
   priority = 1000,
-  style = "storm",
-  terminal_colors = true,
-  transparent = true,
-  styles = {
-    sidebars = "transparent",
-    floats = "transparent",
-  },
-  config = function()
+  config = function(_, opts)
+    require("tokyonight").setup(opts)
     vim.cmd([[colorscheme tokyonight]])
   end,
 }
