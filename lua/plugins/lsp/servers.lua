@@ -2,6 +2,7 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 local servers = {
   lua_ls = {
+    filetypes = { "lua" },
     settings = {
       Lua = {
         workspace = {
@@ -14,6 +15,7 @@ local servers = {
     capabilities = capabilities,
   },
   rust_analyzer = {
+    filetypes = { "rust" },
     settings = {
       ["rust-analyzer"] = {
         checkOnSave = os.getenv("checkOnSave") ~= nil,
@@ -32,8 +34,8 @@ local servers = {
     },
     capabilities = capabilities,
   },
-
   basedpyright = {
+    filetypes = { "python" },
     settings = {
       python = {
         pythonPath = vim.fn.exepath("python"),
@@ -48,6 +50,7 @@ local servers = {
         },
       },
     },
+    capabilities = capabilities,
   },
 }
 
@@ -69,6 +72,7 @@ return {
 
       for name, config in pairs(servers) do
         vim.lsp.config(name, config)
+        vim.lsp.enable(name)
       end
 
       vim.api.nvim_create_autocmd("LspAttach", {
