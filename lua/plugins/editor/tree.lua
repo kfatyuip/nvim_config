@@ -2,6 +2,10 @@ return {
   {
     "nvim-tree/nvim-tree.lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
+    keys = {
+      { "<C-n>", "<cmd>NvimTreeToggle<cr>", desc = "Toggle file tree", silent = true },
+      { "<leader>e", "<cmd>NvimTreeFocus<cr>", desc = "Focus file tree", silent = true },
+    },
     opts = {
       sync_root_with_cwd = true,
       sort = {
@@ -21,7 +25,6 @@ return {
     event = "VeryLazy",
     dependencies = { "nvim-lua/plenary.nvim" },
     keys = {
-
       {
         "<leader>-",
         mode = { "n", "v" },
@@ -29,7 +32,6 @@ return {
         desc = "Open yazi at the current file",
       },
       {
-
         "<leader>cw",
         "<cmd>Yazi cwd<cr>",
         desc = "Open the file manager in nvim's working directory",
