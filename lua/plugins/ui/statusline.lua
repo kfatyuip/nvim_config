@@ -1,5 +1,9 @@
 return {
-  { "linrongbin16/lsp-progress.nvim", config = true },
+  {
+    "linrongbin16/lsp-progress.nvim",
+    lazy = true,
+    config = true,
+  },
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",

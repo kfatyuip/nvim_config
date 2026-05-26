@@ -3,6 +3,9 @@ return {
     "akinsho/flutter-tools.nvim",
     ft = "dart",
     dependencies = { "nvim-lua/plenary.nvim", "stevearc/dressing.nvim" },
+    keys = {
+      { "<leader>ft", "<cmd>Telescope flutter commands<cr>", desc = "Flutter commands", silent = true },
+    },
     config = function()
       local flutter_path = vim.uv.os_getenv("FLUTTER_ROOT") and (vim.uv.os_getenv("FLUTTER_ROOT") .. "/bin/flutter")
         or vim.fn.exepath("flutter")

@@ -4,10 +4,27 @@ local terminals = {
   ht = { cmd = "htop", desc = "Toggle htop" },
 }
 
+local keys = {
+  { "<c-\\>", mode = { "n", "t", "i" }, desc = "Toggle terminal", silent = true },
+  { "<leader>fl", "<cmd>ToggleTerm direction=float<cr>", desc = "Float terminal", silent = true },
+}
+
+for prefix, info in pairs(terminals) do
+  table.insert(keys, {
+    "<leader>" .. prefix,
+    function()
+      require("toggleterm.terminal").Terminal:new({ cmd = info.cmd, direction = "float", hidden = true }):toggle()
+    end,
+    desc = info.desc,
+    silent = true,
+  })
+end
+
 return {
   {
     "akinsho/toggleterm.nvim",
     version = "*",
+    keys = keys,
     config = function()
       require("toggleterm").setup({
         size = 20,
@@ -32,19 +49,6 @@ return {
           },
         },
       })
-
-      vim.keymap.set("n", "<leader>fl", "<cmd>ToggleTerm direction=float<cr>")
-      for prefix, info in pairs(terminals) do
-        vim.keymap.set("n", "<leader>" .. prefix, function()
-          require("toggleterm.terminal").Terminal
-            :new({
-              cmd = info.cmd,
-              direction = "float",
-              hidden = true,
-            })
-            :toggle()
-        end, { desc = info.desc })
-      end
     end,
   },
 }
