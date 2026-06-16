@@ -45,6 +45,3 @@ require("core.cmd")
 require("core.autocmd")
 
 require("vim._core.ui2").enable({ enable = true })
-
----@diagnostic disable-next-line: duplicate-set-field
-vim.deprecate = function() end
