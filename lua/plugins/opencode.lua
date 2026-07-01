@@ -1,3 +1,22 @@
+local opencode_cmd = "opencode --port"
+
+local opencode_term = nil
+local function get_term()
+  if not opencode_term then
+    opencode_term = require("toggleterm.terminal").Terminal:new({
+      cmd = opencode_cmd,
+      direction = "vertical",
+      hidden = true,
+      start_in_insert = false,
+      close_on_exit = true,
+      on_open = function()
+        vim.cmd("vertical resize " .. math.floor(vim.o.columns * 0.5))
+      end,
+    })
+  end
+  return opencode_term
+end
+
 return {
   "nickjvandyke/opencode.nvim",
   version = "*",
@@ -22,7 +41,7 @@ return {
       "<C-.>",
       mode = { "n", "t" },
       function()
-        require("opencode").toggle()
+        get_term():toggle()
       end,
       desc = "Toggle opencode",
     },
@@ -62,6 +81,14 @@ return {
     },
   },
   config = function()
+    vim.g.opencode_opts = {
+      server = {
+        start = function()
+          get_term():open()
+        end,
+      },
+    }
+
     vim.o.autoread = true
   end,
 }
