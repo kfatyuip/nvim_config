@@ -1,5 +1,3 @@
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
 local servers = {
   lua_ls = {
     filetypes = { "lua" },
@@ -12,7 +10,6 @@ local servers = {
         codeLens = { enable = true },
       },
     },
-    capabilities = capabilities,
   },
   rust_analyzer = {
     filetypes = { "rust" },
@@ -32,7 +29,6 @@ local servers = {
         },
       },
     },
-    capabilities = capabilities,
   },
   basedpyright = {
     filetypes = { "python" },
@@ -50,7 +46,6 @@ local servers = {
         },
       },
     },
-    capabilities = capabilities,
   },
 }
 
@@ -64,6 +59,8 @@ return {
       "hrsh7th/cmp-nvim-lsp",
     },
     config = function()
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
       require("mason").setup()
 
       require("mason-lspconfig").setup({
@@ -71,6 +68,7 @@ return {
       })
 
       for name, config in pairs(servers) do
+        config.capabilities = capabilities
         vim.lsp.config(name, config)
         vim.lsp.enable(name)
       end
