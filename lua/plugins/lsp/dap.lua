@@ -1,10 +1,6 @@
 local function read_args()
   local args_string = vim.fn.input("Arguments: ")
-  local utils = require("dap.utils")
-  if utils.splitstr and vim.fn.has("nvim-0.10") == 1 then
-    return utils.splitstr(args_string)
-  end
-  return vim.split(args_string, " +")
+  return require("dap.utils").splitstr(args_string)
 end
 
 local function pick_executable(lang)
@@ -65,8 +61,138 @@ local function generate_dap_config(lang)
       config.initCommands = rust_init_commands
     end
   end
-
   return base_config
+end
+
+local function dap_keymaps()
+  return {
+    {
+      "<F5>",
+      function()
+        require("dap").continue()
+      end,
+      desc = "Continue",
+    },
+    {
+      "<F10>",
+      function()
+        require("dap").step_over()
+      end,
+      desc = "Step Over",
+    },
+    {
+      "<F11>",
+      function()
+        require("dap").step_into()
+      end,
+      desc = "Step Into",
+    },
+    {
+      "<F12>",
+      function()
+        require("dap").step_out()
+      end,
+      desc = "Step Out",
+    },
+    {
+      "<leader>db",
+      function()
+        require("dap").toggle_breakpoint()
+      end,
+      desc = "Toggle Breakpoint",
+    },
+    {
+      "<leader>dB",
+      function()
+        require("dap").set_breakpoint(vim.fn.input("Condition: "))
+      end,
+      desc = "Conditional Breakpoint",
+    },
+    {
+      "<leader>dr",
+      function()
+        require("dap").repl.open()
+      end,
+      desc = "Open REPL",
+    },
+    {
+      "<leader>dl",
+      function()
+        require("dap").run_last()
+      end,
+      desc = "Run Last",
+    },
+    {
+      "<leader>de",
+      function()
+        require("dap").terminate()
+      end,
+      desc = "Terminate",
+    },
+    {
+      "<leader>dh",
+      function()
+        require("dap.ui.widgets").hover()
+      end,
+      mode = { "n", "v" },
+      desc = "Hover",
+    },
+    {
+      "<leader>dp",
+      function()
+        require("dap.ui.widgets").preview()
+      end,
+      mode = { "n", "v" },
+      desc = "Preview",
+    },
+    {
+      "<leader>dlp",
+      function()
+        require("dap").set_breakpoint(nil, nil, vim.fn.input("Log message: "))
+      end,
+      desc = "Log Point",
+    },
+    {
+      "<leader>du",
+      function()
+        require("dap").up()
+      end,
+      desc = "Stack Up",
+    },
+    {
+      "<leader>dd",
+      function()
+        require("dap").down()
+      end,
+      desc = "Stack Down",
+    },
+    {
+      "<leader>dk",
+      function()
+        require("dap").run_to_cursor()
+      end,
+      desc = "Run to Cursor",
+    },
+    {
+      "<leader>do",
+      function()
+        require("dapui").open()
+      end,
+      desc = "Open DAP UI",
+    },
+    {
+      "<leader>dc",
+      function()
+        require("dapui").close()
+      end,
+      desc = "Close DAP UI",
+    },
+    { "<leader>tdb", "<cmd>Telescope dap list_breakpoints<CR>", desc = "List Breakpoints" },
+    { "<leader>tdc", "<cmd>Telescope dap commands<CR>", desc = "Commands" },
+    { "<leader>tds", "<cmd>Telescope dap configurations<CR>", desc = "Configurations" },
+    { "<leader>tdv", "<cmd>Telescope dap variables<CR>", desc = "Variables" },
+    { "<leader>tdf", "<cmd>Telescope dap frames<CR>", desc = "Frames" },
+  }
 end
 
 return {
@@ -139,135 +265,6 @@ return {
       dap.listeners.before.event_terminated["dapui_config"] = dapui.close
       dap.listeners.before.event_exited["dapui_config"] = dapui.close
     end,
-    keys = {
-      {
-        "<F5>",
-        function()
-          require("dap").continue()
-        end,
-        desc = "Continue",
-      },
-      {
-        "<F10>",
-        function()
-          require("dap").step_over()
-        end,
-        desc = "Step Over",
-      },
-      {
-        "<F11>",
-        function()
-          require("dap").step_into()
-        end,
-        desc = "Step Into",
-      },
-      {
-        "<F12>",
-        function()
-          require("dap").step_out()
-        end,
-        desc = "Step Out",
-      },
-      {
-        "<leader>db",
-        function()
-          require("dap").toggle_breakpoint()
-        end,
-        desc = "Toggle Breakpoint",
-      },
-      {
-        "<leader>dB",
-        function()
-          require("dap").set_breakpoint(vim.fn.input("Condition: "))
-        end,
-        desc = "Conditional Breakpoint",
-      },
-      {
-        "<leader>dr",
-        function()
-          require("dap").repl.open()
-        end,
-        desc = "Open REPL",
-      },
-      {
-        "<leader>dl",
-        function()
-          require("dap").run_last()
-        end,
-        desc = "Run Last",
-      },
-      {
-        "<leader>de",
-        function()
-          require("dap").terminate()
-        end,
-        desc = "Terminate",
-      },
-
-      {
-        "<leader>dh",
-        function()
-          require("dap.ui.widgets").hover()
-        end,
-        mode = { "n", "v" },
-        desc = "Hover",
-      },
-      {
-        "<leader>dp",
-        function()
-          require("dap.ui.widgets").preview()
-        end,
-        mode = { "n", "v" },
-        desc = "Preview",
-      },
-      {
-        "<leader>dlp",
-        function()
-          require("dap").set_breakpoint(nil, nil, vim.fn.input("Log message: "))
-        end,
-        desc = "Log Point",
-      },
-      {
-        "<leader>du",
-        function()
-          require("dap").up()
-        end,
-        desc = "Stack Up",
-      },
-      {
-        "<leader>dd",
-        function()
-          require("dap").down()
-        end,
-        desc = "Stack Down",
-      },
-      {
-        "<leader>dk",
-        function()
-          require("dap").run_to_cursor()
-        end,
-        desc = "Run to Cursor",
-      },
-      {
-        "<leader>do",
-        function()
-          require("dapui").open()
-        end,
-        desc = "Open DAP UI",
-      },
-      {
-        "<leader>dc",
-        function()
-          require("dapui").close()
-        end,
-        desc = "Close DAP UI",
-      },
-
-      { "<leader>tdb", "<cmd>Telescope dap list_breakpoints<CR>", desc = "List Breakpoints" },
-      { "<leader>tdc", "<cmd>Telescope dap commands<CR>", desc = "Commands" },
-      { "<leader>tds", "<cmd>Telescope dap configurations<CR>", desc = "Configurations" },
-      { "<leader>tdv", "<cmd>Telescope dap variables<CR>", desc = "Variables" },
-      { "<leader>tdf", "<cmd>Telescope dap frames<CR>", desc = "Frames" },
-    },
+    keys = dap_keymaps(),
   },
 }

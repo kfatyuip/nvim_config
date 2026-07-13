@@ -23,7 +23,7 @@ vim.api.nvim_create_autocmd("DirChanged", {
     local resolved_current = vim.fn.resolve(current_dir):gsub("/+$", "")
     local ok, lines = pcall(vim.fn.readfile, exrc_path)
     if not ok then
-      if not (vim.uv or vim.loop).fs_stat(exrc_path) then
+      if not vim.uv.fs_stat(exrc_path) then
         local f = io.open(exrc_path, "w")
         if f then
           f:close()
