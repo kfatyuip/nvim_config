@@ -11,6 +11,15 @@ vim.opt.wildmode = "full"
 vim.o.exrc = true
 vim.o.secure = true
 
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+
+local nvr = (vim.fn.executable("uv") == 1 and "uv tool run --from neovim-remote" or "") .. "nvr -cc split --remote-wait"
+if nvr:sub(1, 1) ~= "n" or vim.fn.executable("nvr") == 1 then
+  vim.env.VISUAL = nvr
+  vim.env.EDITOR = nvr
+end
+
 vim.g.nvim_tree_respect_buf_cwd = 1
 
 if vim.g.neovide then

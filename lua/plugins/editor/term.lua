@@ -6,7 +6,23 @@ local terminals = {
 
 local keys = {
   { "<c-\\>", mode = { "n", "t", "i" }, desc = "Toggle terminal", silent = true },
+  {
+    "<c-|>",
+    mode = { "n", "t", "i" },
+    function()
+      local Terminal = require("toggleterm.terminal").Terminal
+      local vertical_term = Terminal:new({
+        cmd = vim.o.shell,
+        direction = "vertical",
+        hidden = true,
+      })
+      vertical_term:toggle(vim.o.columns * 0.5)
+    end,
+    desc = "Toggle terminal vertical",
+    silent = true,
+  },
   { "<leader>fl", "<cmd>ToggleTerm direction=float<cr>", desc = "Float terminal", silent = true },
+  { "<C-w>", mode = "t", [[<C-\><C-n><C-w>]], { silent = true } },
 }
 
 for prefix, info in pairs(terminals) do
@@ -27,7 +43,13 @@ return {
     keys = keys,
     config = function()
       require("toggleterm").setup({
-        size = 20,
+        size = function(term)
+          if term.direction == "horizontal" then
+            return 20
+          elseif term.direction == "vertical" then
+            return vim.o.columns * 0.5
+          end
+        end,
         open_mapping = [[<c-\>]],
         shell = vim.o.shell,
         direction = "horizontal",
