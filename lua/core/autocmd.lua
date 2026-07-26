@@ -16,7 +16,8 @@ vim.api.nvim_create_autocmd("DirChanged", {
       return
     end
     local exrc_path = vim.fs.normalize(home .. "/.nvimexrc")
-    local current_dir = vim.uv.cwd()
+    local event = vim.v.event
+    local current_dir = event and event.cwd or vim.uv.cwd()
     if not current_dir then
       return
     end
