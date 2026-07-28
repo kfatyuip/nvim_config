@@ -51,6 +51,18 @@ local servers = {
 
 return {
   {
+    "williamboman/mason.nvim",
+    cmd = "Mason",
+    opts = {},
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    dependencies = { "williamboman/mason.nvim" },
+    opts = {
+      ensure_installed = { "lua_ls" },
+    },
+  },
+  {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
@@ -58,14 +70,9 @@ return {
       "williamboman/mason-lspconfig.nvim",
       "hrsh7th/cmp-nvim-lsp",
     },
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-      require("mason").setup()
-
-      require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls" },
-      })
 
       for name, config in pairs(servers) do
         config.capabilities = capabilities
@@ -76,14 +83,9 @@ return {
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
         callback = function(args)
-          local bufnr = args.buf
           local client = vim.lsp.get_client_by_id(args.data.client_id)
-          if not client then
-            return
-          end
-
-          if client.server_capabilities.inlayHintProvider then
-            vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+          if client and client.server_capabilities.inlayHintProvider then
+            vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
           end
         end,
       })

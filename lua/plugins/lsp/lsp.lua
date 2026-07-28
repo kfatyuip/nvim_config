@@ -1,9 +1,5 @@
 return {
   {
-    "williamboman/mason.nvim",
-    lazy = true,
-  },
-  {
     "j-hui/fidget.nvim",
     event = "VeryLazy",
     config = function()
