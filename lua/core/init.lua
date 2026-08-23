@@ -8,6 +8,13 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 vim.opt.wildmenu = true
 vim.opt.wildmode = "full"
+vim.opt.undofile = true
+vim.opt.scrolloff = 8
+vim.opt.sidescrolloff = 8
+vim.opt.updatetime = 250
+vim.opt.signcolumn = "yes"
+vim.opt.splitright = true
+vim.opt.splitbelow = true
 vim.o.exrc = true
 vim.o.secure = true
 

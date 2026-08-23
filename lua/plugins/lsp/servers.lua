@@ -22,11 +22,6 @@ local servers = {
           loadOutDirsFromCheck = true,
         },
         procMacro = { enable = true },
-        server = {
-          extraEnv = {
-            RUST_SRC_PATH = vim.fn.trim(vim.fn.system("rustc --print sysroot")) .. "/lib/rustlib/src/rust/library",
-          },
-        },
       },
     },
   },
@@ -51,13 +46,13 @@ local servers = {
 
 return {
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     cmd = "Mason",
     opts = {},
   },
   {
-    "williamboman/mason-lspconfig.nvim",
-    dependencies = { "williamboman/mason.nvim" },
+    "mason-org/mason-lspconfig.nvim",
+    dependencies = { "mason-org/mason.nvim" },
     opts = {
       ensure_installed = { "lua_ls" },
     },
@@ -66,11 +61,10 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
+      "mason-org/mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
       "hrsh7th/cmp-nvim-lsp",
     },
-    event = { "BufReadPre", "BufNewFile" },
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
