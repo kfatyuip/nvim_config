@@ -1,14 +1,35 @@
+local group = vim.api.nvim_create_augroup("UserCore", { clear = true })
+
+local warned_parsers = {}
+
 vim.api.nvim_create_autocmd("FileType", {
+  group = group,
   pattern = { "*" },
   callback = function(ev)
+    if ev.buf ~= vim.api.nvim_get_current_buf() or vim.bo[ev.buf].buftype ~= "" then
+      return
+    end
     local lang = vim.treesitter.language.get_lang(vim.bo.filetype)
-    if lang then
-      pcall(vim.treesitter.start, ev.buf)
+    if not lang then
+      return
+    end
+    if not pcall(vim.treesitter.start, ev.buf) then
+      local ok_parser = pcall(vim.treesitter.language.inspect, lang)
+      if not ok_parser and not warned_parsers[lang] then
+        warned_parsers[lang] = true
+        vim.schedule(function()
+          vim.notify(
+            ("No treesitter parser for %q — install with `:TSInstall %s`"):format(vim.bo[ev.buf].filetype, lang),
+            vim.log.levels.WARN
+          )
+        end)
+      end
     end
   end,
 })
 
 vim.api.nvim_create_autocmd("DirChanged", {
+  group = group,
   pattern = "*",
   callback = function()
     local home = vim.uv.os_getenv("HOME")
