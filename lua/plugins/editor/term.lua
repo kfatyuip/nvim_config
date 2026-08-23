@@ -22,7 +22,7 @@ local keys = {
     silent = true,
   },
   { "<leader>fl", "<cmd>ToggleTerm direction=float<cr>", desc = "Float terminal", silent = true },
-  { "<C-w>", mode = "t", [[<C-\><C-n><C-w>]], { silent = true } },
+  { "<C-w>", mode = "t", [[<C-\><C-n><C-w>]], silent = true },
 }
 
 for prefix, info in pairs(terminals) do
@@ -60,7 +60,7 @@ return {
         shade_filetypes = {},
         shade_terminals = true,
         shade_factor = 2,
-        start_in_insert = true,
+        start_in_insert = false,
         persist_mode = true,
         float_opts = {
           border = "curved",

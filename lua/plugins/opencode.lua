@@ -7,7 +7,6 @@ local function get_term()
       cmd = opencode_cmd,
       direction = "vertical",
       hidden = true,
-      start_in_insert = false,
       close_on_exit = true,
       on_open = function()
         vim.cmd("vertical resize " .. math.floor(vim.o.columns * 0.5))

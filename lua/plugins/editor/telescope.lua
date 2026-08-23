@@ -14,10 +14,5 @@ return {
     { "<leader>st", "<cmd>Telescope git_status<cr>", desc = "Git status", silent = true },
     { "<leader>tl", "<cmd>Telescope<cr>", desc = "Open telescope", silent = true },
     { "<leader>jl", "<cmd>Telescope jumplist<cr>", desc = "Jumplist", silent = true },
-    { "<leader>ss", "<cmd>Telescope lsp_document_symbols<cr>", desc = "LSP document symbols", silent = true },
-    { "<leader>dS", "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics", silent = true },
-    { "gD", "<cmd>Telescope lsp_definitions<cr>", desc = "Go to definitions", silent = true },
-    { "gR", "<cmd>Telescope lsp_references<cr>", desc = "Go to references", silent = true },
-    { "gi", "<cmd>Telescope lsp_implementations<cr>", desc = "Go to implementations", silent = true },
   },
 }

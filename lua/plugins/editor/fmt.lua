@@ -37,15 +37,17 @@ function M.merge_conform_config(content)
   if type(content) ~= "table" then
     return
   end
-  current_config = vim.tbl_deep_extend("force", current_config, content)
+  vim.tbl_deep_extend("force", current_config, content)
 end
 
 function M.clear_conform_config()
-  current_config = {}
+  for ft in pairs(current_config.formatters_by_ft) do
+    current_config.formatters_by_ft[ft] = nil
+  end
 end
 
 function M.reset_conform_config()
-  current_config = vim.deepcopy(default_config)
+  current_config.formatters_by_ft = vim.deepcopy(default_config.formatters_by_ft)
 end
 
 return M
