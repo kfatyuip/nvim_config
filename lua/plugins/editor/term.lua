@@ -60,7 +60,7 @@ return {
         shade_filetypes = {},
         shade_terminals = true,
         shade_factor = 2,
-        start_in_insert = false,
+        start_in_insert = true,
         persist_mode = true,
         float_opts = {
           border = "curved",
