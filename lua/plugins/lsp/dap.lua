@@ -15,7 +15,7 @@ local function pick_executable(lang)
   end
   local candidates = vim.split(vim.fn.glob(candidate_glob), "\n")
   for _, candidate in ipairs(candidates) do
-    if vim.fn.executable(candidate) == 1 then
+    if vim.fn.isexecutable(candidate) == 1 then
       return candidate
     end
   end

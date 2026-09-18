@@ -1,6 +1,7 @@
 local group = vim.api.nvim_create_augroup("UserCore", { clear = true })
 
 vim.api.nvim_create_autocmd("FileType", {
+  group = group,
   pattern = { "*" },
   callback = function(ev)
     local lang = vim.treesitter.language.get_lang(vim.bo.filetype)

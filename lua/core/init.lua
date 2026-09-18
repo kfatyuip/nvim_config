@@ -17,12 +17,22 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.o.exrc = true
 vim.o.secure = true
+vim.o.autoread = true
 
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 
-local nvr = (vim.fn.executable("uv") == 1 and "uv tool run --from neovim-remote" or "") .. " nvr -cc split --remote-wait"
-if nvr:sub(1, 1) ~= "n" or vim.fn.executable("nvr") == 1 then
+local has_cmd = function(name)
+  return vim.fn.executable(name) == 1
+end
+local nvr_cmd
+if has_cmd("nvr") then
+  nvr_cmd = "nvr"
+elseif has_cmd("uv") then
+  nvr_cmd = "uv tool run --from neovim-remote nvr"
+end
+if nvr_cmd then
+  local nvr = nvr_cmd .. " -cc split --remote-wait"
   vim.env.VISUAL = nvr
   vim.env.EDITOR = nvr
 end
