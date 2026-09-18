@@ -87,7 +87,5 @@ return {
         end,
       },
     }
-
-    vim.o.autoread = true
   end,
 }
