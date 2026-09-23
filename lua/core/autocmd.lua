@@ -1,5 +1,37 @@
 local group = vim.api.nvim_create_augroup("UserCore", { clear = true })
 
+local function fcitx5_remote(args)
+  if vim.fn.executable("fcitx5-remote") ~= 1 then
+    return nil
+  end
+  local obj = vim.system(vim.list_extend({ "fcitx5-remote" }, args), { text = true }):wait()
+  return (obj.stdout or ""):match("%d+")
+end
+
+vim.api.nvim_create_autocmd("CmdlineEnter", {
+  group = group,
+  callback = function()
+    local state = fcitx5_remote({})
+    if not state then
+      return
+    end
+    vim.g.fcitx5_cmdline_was_active = state == "2"
+    if state == "2" then
+      fcitx5_remote({ "-c" })
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd("CmdlineLeave", {
+  group = group,
+  callback = function()
+    if vim.g.fcitx5_cmdline_was_active then
+      fcitx5_remote({ "-o" })
+      vim.g.fcitx5_cmdline_was_active = false
+    end
+  end,
+})
+
 vim.api.nvim_create_autocmd("FileType", {
   group = group,
   pattern = { "*" },
