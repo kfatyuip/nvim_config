@@ -15,7 +15,7 @@ local default_config = {
 
 local M = {
   "stevearc/conform.nvim",
-  event = { "BufWritePre" },
+  event = "VeryLazy",
   cmd = { "ConformInfo" },
   opts = {
     formatters_by_ft = vim.deepcopy(default_config.formatters_by_ft),

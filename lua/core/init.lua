@@ -60,6 +60,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+  change_detection = { notify = false },
   { import = "plugins.editor" },
   { import = "plugins.lsp" },
   { import = "plugins.ui" },
@@ -70,4 +71,6 @@ require("core.keymaps")
 require("core.cmd")
 require("core.autocmd")
 
-require("vim._core.ui2").enable({ enable = true })
+pcall(function()
+  require("vim._core.ui2").enable({ enable = true })
+end)

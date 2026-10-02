@@ -21,7 +21,6 @@ return {
   },
   {
     "mikavilpas/yazi.nvim",
-    version = "*",
     event = "VeryLazy",
     dependencies = { "nvim-lua/plenary.nvim" },
     keys = {
@@ -42,8 +41,11 @@ return {
         desc = "Resume the last yazi session",
       },
     },
+    opts = {
+      open_for_directories = true,
+    },
     init = function()
-      vim.g.loaded_netrwPlugin = 1
+      vim.g.loaded_nvim_dir_plugin = 1
     end,
   },
 }
