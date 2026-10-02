@@ -15,7 +15,7 @@ local function pick_executable(lang)
   end
   local candidates = vim.split(vim.fn.glob(candidate_glob), "\n")
   for _, candidate in ipairs(candidates) do
-    if vim.fn.isexecutable(candidate) == 1 then
+    if vim.fn.executable(vim.fn.fnamemodify(candidate, ":t")) == 1 then
       return candidate
     end
   end
@@ -226,7 +226,10 @@ return {
         host = "127.0.0.1",
         port = "${port}",
         executable = {
-          command = vim.fn.exepath("codelldb") or "codelldb",
+          command = (function()
+            local path = vim.fn.exepath("codelldb")
+            return path ~= "" and path or "codelldb"
+          end)(),
           args = { "--port", "${port}" },
         },
       }

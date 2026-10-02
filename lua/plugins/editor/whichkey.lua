@@ -15,18 +15,21 @@ return {
     wk.setup()
     wk.add({
       { "<leader>b", group = "buffer" },
-      { "<leader>c", group = "code" },
+      { "<leader>c", group = "code/crates" },
       { "<leader>d", group = "debug" },
       { "<leader>e", group = "explorer" },
       { "<leader>f", group = "find/format" },
       { "<leader>g", group = "git" },
       { "<leader>j", group = "jump" },
-      { "<leader>l", group = "lazy/terminal" },
+      { "<leader>l", group = "lazy/lsp/terminal" },
       { "<leader>m", group = "marks" },
       { "<leader>r", group = "rename" },
       { "<leader>s", group = "search/symbols" },
       { "<leader>t", group = "tab/telescope" },
-      { "<leader>t d", group = "dap (telescope)" },
+      { "<leader>td", group = "dap (telescope)" },
+      { "<leader>u", group = "undo/treesitter" },
+      { "<leader>x", group = "close" },
+      { "<leader>-", group = "yazi" },
     })
   end,
 }

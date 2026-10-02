@@ -15,11 +15,10 @@ local servers = {
     filetypes = { "rust" },
     settings = {
       ["rust-analyzer"] = {
-        checkOnSave = os.getenv("checkOnSave") ~= nil,
+        check = { command = "clippy" },
         cargo = {
-          buildScripts = { enable = os.getenv("buildScripts") ~= nil },
-          allFeatures = os.getenv("allFeatures") ~= nil,
-          loadOutDirsFromCheck = true,
+          buildScripts = { enable = true },
+          allFeatures = true,
         },
         procMacro = { enable = true },
       },
@@ -28,9 +27,6 @@ local servers = {
   basedpyright = {
     filetypes = { "python" },
     settings = {
-      python = {
-        pythonPath = vim.fn.exepath("python"),
-      },
       basedpyright = {
         analysis = {
           typeCheckingMode = "recommended",
@@ -73,6 +69,14 @@ return {
         vim.lsp.config(name, config)
         vim.lsp.enable(name)
       end
+
+      vim.schedule(function()
+        local registry_ok, _ = pcall(require, "mason-registry")
+        local map_ok, _ = pcall(require, "mason-lspconfig.mappings")
+        if not registry_ok or not map_ok then
+          return
+        end
+      end)
 
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),

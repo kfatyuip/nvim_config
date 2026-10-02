@@ -4,19 +4,26 @@ local terminals = {
   ht = { cmd = "htop", desc = "Toggle htop" },
 }
 
+local cached = {}
+
+local function get_term(spec)
+  local key = (spec.cmd or "") .. "|" .. (spec.direction or "float")
+  if not cached[key] then
+    cached[key] = require("toggleterm.terminal").Terminal:new(vim.tbl_extend("force", {
+      hidden = true,
+      close_on_exit = true,
+    }, spec))
+  end
+  return cached[key]
+end
+
 local keys = {
   { "<c-\\>", mode = { "n", "t", "i" }, desc = "Toggle terminal", silent = true },
   {
     "<c-|>",
     mode = { "n", "t", "i" },
     function()
-      local Terminal = require("toggleterm.terminal").Terminal
-      local vertical_term = Terminal:new({
-        cmd = vim.o.shell,
-        direction = "vertical",
-        hidden = true,
-      })
-      vertical_term:toggle(vim.o.columns * 0.5)
+      get_term({ cmd = vim.o.shell, direction = "vertical" }):toggle(vim.o.columns * 0.5)
     end,
     desc = "Toggle terminal vertical",
     silent = true,
@@ -30,7 +37,7 @@ for prefix, info in pairs(terminals) do
   table.insert(keys, {
     "<leader>" .. prefix,
     function()
-      require("toggleterm.terminal").Terminal:new({ cmd = info.cmd, direction = "float", hidden = true }):toggle()
+      get_term({ cmd = info.cmd, direction = "float" }):toggle()
     end,
     desc = info.desc,
     silent = true,
