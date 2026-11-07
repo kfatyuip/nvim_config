@@ -1,12 +1,18 @@
 local default_config = {
   formatters_by_ft = {
-    lua = { "stylua" },
+    lua = { "stylua", lsp_format = "never" },
     json = { "jq" },
     python = { "isort", "black" },
-    rust = { "rustfmt" },
+    rust = { "rustfmt", lsp_format = "never" },
     html = { "prettier" },
     css = { "prettier" },
     javascript = { "prettier" },
+    typescript = { "prettier" },
+    go = { "goimports", "gofmt" },
+    toml = { "taplo" },
+    c = { "clang-format" },
+    cpp = { "clang-format" },
+    markdown = { "prettier" },
     sh = { "shfmt" },
     bash = { "shfmt" },
     zsh = { "shfmt" },
@@ -16,7 +22,7 @@ local default_config = {
 local M = {
   "stevearc/conform.nvim",
   event = "VeryLazy",
-  cmd = { "ConformInfo" },
+  cmd = { "ConformInfo", "ConformConfigClear", "ConformConfigReset" },
   opts = {
     formatters_by_ft = vim.deepcopy(default_config.formatters_by_ft),
     notify_on_error = true,
@@ -30,6 +36,18 @@ local M = {
       desc = "Format",
     },
   },
+  config = function(_, opts)
+    require("conform").setup(opts)
+    local cmd = vim.api.nvim_create_user_command
+    cmd("ConformConfigClear", function()
+      M.clear_conform_config()
+      vim.notify("Conform config cleared", vim.log.levels.INFO)
+    end, { desc = "Clear conform.nvim config" })
+    cmd("ConformConfigReset", function()
+      M.reset_conform_config()
+      vim.notify("Conform config reset", vim.log.levels.INFO)
+    end, { desc = "Reset conform.nvim config" })
+  end,
 }
 
 local function set_formatters(target, source)

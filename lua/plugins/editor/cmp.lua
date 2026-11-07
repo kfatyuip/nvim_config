@@ -86,7 +86,6 @@ local M = {
             luasnip = "[Snip]",
             buffer = "[Buf]",
             path = "[Path]",
-            vimtex = "[Tex]",
             crates = "[Crate]",
           })[entry.source.name] or string.format("[%s]", entry.source.name)
 
@@ -98,7 +97,6 @@ local M = {
         { name = "luasnip", priority = 750 },
       }, {
         { name = "path", priority = 250 },
-        { name = "vimtex", priority = 250 },
         { name = "crates", priority = 250 },
         { name = "buffer", priority = 100, keyword_length = 3 },
       }),
