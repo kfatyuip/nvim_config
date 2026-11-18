@@ -1,45 +1,3 @@
-local servers = {
-  lua_ls = {
-    filetypes = { "lua" },
-    settings = {
-      Lua = {
-        workspace = {
-          checkThirdParty = false,
-          library = { vim.env.VIMRUNTIME },
-        },
-        codeLens = { enable = true },
-      },
-    },
-  },
-  rust_analyzer = {
-    filetypes = { "rust" },
-    settings = {
-      ["rust-analyzer"] = {
-        check = { command = "clippy" },
-        cargo = {
-          buildScripts = { enable = true },
-          allFeatures = true,
-        },
-        procMacro = { enable = true },
-      },
-    },
-  },
-  basedpyright = {
-    filetypes = { "python" },
-    settings = {
-      basedpyright = {
-        analysis = {
-          typeCheckingMode = "recommended",
-          diagnosticMode = "openFilesOnly",
-          inlayHints = {
-            callArgumentNames = true,
-          },
-        },
-      },
-    },
-  },
-}
-
 return {
   {
     "mason-org/mason.nvim",
@@ -49,9 +7,7 @@ return {
   {
     "mason-org/mason-lspconfig.nvim",
     dependencies = { "mason-org/mason.nvim" },
-    opts = {
-      ensure_installed = { "lua_ls" },
-    },
+    opts = {},
   },
   {
     "neovim/nvim-lspconfig",
@@ -62,14 +18,6 @@ return {
       "hrsh7th/cmp-nvim-lsp",
     },
     config = function()
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-      for name, config in pairs(servers) do
-        config.capabilities = capabilities
-        vim.lsp.config(name, config)
-        vim.lsp.enable(name)
-      end
-
       vim.schedule(function()
         local registry_ok, _ = pcall(require, "mason-registry")
         local map_ok, _ = pcall(require, "mason-lspconfig.mappings")
