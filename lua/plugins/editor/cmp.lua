@@ -91,6 +91,7 @@ local M = {
             buffer = "[Buf]",
             path = "[Path]",
             crates = "[Crate]",
+            copilot = "[Copilot]",
           })[entry.source.name] or string.format("[%s]", entry.source.name)
 
           return vim_item
@@ -99,6 +100,7 @@ local M = {
       sources = cmp.config.sources({
         { name = "nvim_lsp", priority = 1000 },
         { name = "luasnip", priority = 750 },
+        { name = "copilot", priority = 500 },
       }, {
         { name = "path", priority = 250 },
         -- 'crates' source is registered by lsp/crates.lua (rust/toml only).
