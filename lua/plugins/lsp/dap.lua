@@ -5,7 +5,7 @@ end
 
 local function pick_executable(lang)
   local default_dir = vim.fn.getcwd()
-  local candidate_glob = ""
+  local candidate_glob
   if lang == "rust" then
     default_dir = default_dir .. "/target/debug/"
     candidate_glob = default_dir .. "*"
@@ -146,7 +146,7 @@ local function dap_keymaps()
       desc = "Preview",
     },
     {
-      "<leader>dlp",
+      "<leader>dP",
       function()
         require("dap").set_breakpoint(nil, nil, vim.fn.input("Log message: "))
       end,

@@ -1,8 +1,11 @@
+local LspProgressStatusUpdated = "LspProgressStatusUpdated"
+
 return {
   {
     "linrongbin16/lsp-progress.nvim",
     lazy = true,
-    config = true,
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = { event = LspProgressStatusUpdated },
   },
   {
     "nvim-lualine/lualine.nvim",
@@ -26,7 +29,7 @@ return {
       vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
       vim.api.nvim_create_autocmd("User", {
         group = "lualine_augroup",
-        pattern = "LspProgressStatusUpdated",
+        pattern = LspProgressStatusUpdated,
         callback = require("lualine").refresh,
       })
     end,

@@ -16,7 +16,6 @@ vim.opt.signcolumn = "yes"
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.o.exrc = true
-vim.o.secure = true
 vim.o.autoread = true
 
 vim.g.loaded_perl_provider = 0
@@ -33,6 +32,10 @@ elseif has_cmd("uv") then
 end
 if nvr_cmd then
   local nvr = nvr_cmd .. " -cc split --remote-wait"
+  -- vim.env.* only affects this Neovim and its children, not the parent shell's
+  -- $EDITOR. Programs taking only the first token would see "uv" as the editor in
+  -- the fallback branch; on this machine nvr is on PATH so the first branch runs.
+  -- Prefer `uv tool install neovim-remote` to keep nvr available without uv.
   vim.env.VISUAL = nvr
   vim.env.EDITOR = nvr
 end
@@ -56,21 +59,29 @@ if not vim.uv.fs_stat(lazypath) then
     "--branch=stable",
     lazypath,
   })
+  if vim.v.shell_error ~= 0 or not vim.uv.fs_stat(lazypath) then
+    vim.notify("Failed to bootstrap lazy.nvim at " .. lazypath, vim.log.levels.ERROR)
+    return
+  end
 end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+  spec = {
+    { import = "plugins.editor" },
+    { import = "plugins.lsp" },
+    { import = "plugins.ui" },
+    { import = "plugins" },
+  },
   change_detection = { notify = false },
-  { import = "plugins.editor" },
-  { import = "plugins.lsp" },
-  { import = "plugins.ui" },
-  { import = "plugins" },
 })
 
 require("core.keymaps")
 require("core.cmd")
 require("core.autocmd")
 
-pcall(function()
-  require("vim._core.ui2").enable({ enable = true })
-end)
+-- vim._core.ui2 is an internal Neovim module (0.12+).
+local ui2_ok, ui2 = pcall(require, "vim._core.ui2")
+if ui2_ok then
+  pcall(ui2.enable, { enable = true })
+end

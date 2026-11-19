@@ -27,7 +27,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     branch = "main",
     build = ":TSUpdate",
-    cmd = { "TSInstall", "TSInstallInfo", "TSUpdate" },
+    --  highlight/indent/fold are enabled per-buffer by core/autocmd.lua
     lazy = false,
     config = function()
       local ts = require("nvim-treesitter")

@@ -30,7 +30,7 @@ return {
       { "<leader>bw", "<cmd>BufferOrderByWindowNumber<cr>", desc = "Sort by window", silent = true },
       { "<leader>cl", "<cmd>BufferCloseBuffersLeft<cr>", desc = "Close left buffers", silent = true },
       { "<leader>cr", "<cmd>BufferCloseBuffersRight<cr>", desc = "Close right buffers", silent = true },
-      { "<leader>x", "<cmd>bd<cr>", desc = "Delete buffer", silent = true },
+      { "<leader>x", "<cmd>BufferClose<cr>", desc = "Delete buffer", silent = true },
     },
   },
   {

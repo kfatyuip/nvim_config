@@ -78,8 +78,12 @@ local M = {
       }),
       formatting = {
         format = function(entry, vim_item)
-          local icon = cmp_kinds[vim_item.kind] or ""
-          vim_item.kind = string.format("%s %s", icon, vim_item.kind)
+          local kind = vim_item.kind
+          local icon = cmp_kinds[kind] or ""
+          vim_item.kind = string.format("%s %s", icon, kind)
+          if kind then
+            vim_item.kind_hl_group = "CmpItemKind" .. kind
+          end
 
           vim_item.menu = ({
             nvim_lsp = "[LSP]",
@@ -97,6 +101,7 @@ local M = {
         { name = "luasnip", priority = 750 },
       }, {
         { name = "path", priority = 250 },
+        -- 'crates' source is registered by lsp/crates.lua (rust/toml only).
         { name = "crates", priority = 250 },
         { name = "buffer", priority = 100, keyword_length = 3 },
       }),

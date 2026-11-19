@@ -22,7 +22,6 @@ return {
       { "<leader>j", group = "jump" },
       { "<leader>l", group = "lazy/lsp" },
       { "<leader>m", group = "marks" },
-      { "<leader>o", group = "opencode/terminal" },
       { "<leader>r", group = "rename" },
       { "<leader>s", group = "search/symbols" },
       { "<leader>t", group = "tab/telescope" },

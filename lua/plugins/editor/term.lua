@@ -47,7 +47,7 @@ end
 return {
   {
     "akinsho/toggleterm.nvim",
-    version = "*",
+    commit = "50ea089fc548917cc3cc16b46a8211833b9e3c7c",
     keys = keys,
     config = function()
       require("toggleterm").setup({
@@ -66,8 +66,9 @@ return {
         close_on_exit = true,
         persist_size = true,
         shade_filetypes = {},
-        shade_terminals = true,
-        shade_factor = 2,
+        -- shaded terminals win over custom Normal highlights in the pinned doc;
+        -- disable so float_opts.highlights (border/background=Normal) takes effect.
+        shade_terminals = false,
         start_in_insert = true,
         persist_mode = true,
         float_opts = {

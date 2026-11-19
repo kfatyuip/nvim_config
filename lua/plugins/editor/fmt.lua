@@ -8,7 +8,7 @@ local default_config = {
     css = { "prettier" },
     javascript = { "prettier" },
     typescript = { "prettier" },
-    go = { "goimports", "gofmt" },
+    go = { "goimports" },
     toml = { "taplo" },
     c = { "clang-format" },
     cpp = { "clang-format" },
@@ -31,22 +31,14 @@ local M = {
     {
       "<leader>fm",
       function()
-        require("conform").format({ lsp_fallback = true, async = true })
+        require("conform").format({ lsp_format = "fallback", async = true })
       end,
       desc = "Format",
     },
   },
   config = function(_, opts)
     require("conform").setup(opts)
-    local cmd = vim.api.nvim_create_user_command
-    cmd("ConformConfigClear", function()
-      M.clear_conform_config()
-      vim.notify("Conform config cleared", vim.log.levels.INFO)
-    end, { desc = "Clear conform.nvim config" })
-    cmd("ConformConfigReset", function()
-      M.reset_conform_config()
-      vim.notify("Conform config reset", vim.log.levels.INFO)
-    end, { desc = "Reset conform.nvim config" })
+    vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
   end,
 }
 

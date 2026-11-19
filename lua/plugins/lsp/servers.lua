@@ -7,7 +7,7 @@ return {
   {
     "mason-org/mason-lspconfig.nvim",
     dependencies = { "mason-org/mason.nvim" },
-    opts = {},
+    opts = { automatic_enable = true },
   },
   {
     "neovim/nvim-lspconfig",
@@ -18,20 +18,16 @@ return {
       "hrsh7th/cmp-nvim-lsp",
     },
     config = function()
-      vim.schedule(function()
-        local registry_ok, _ = pcall(require, "mason-registry")
-        local map_ok, _ = pcall(require, "mason-lspconfig.mappings")
-        if not registry_ok or not map_ok then
-          return
-        end
-      end)
+      local ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+      local capabilities = ok and cmp_nvim_lsp.default_capabilities() or vim.lsp.protocol.make_client_capabilities()
+      vim.lsp.config("*", { capabilities = capabilities })
 
       vim.api.nvim_create_autocmd("LspAttach", {
-        group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
+        group = vim.api.nvim_create_augroup("UserNvimLspConfig", { clear = true }),
         callback = function(args)
           local client = vim.lsp.get_client_by_id(args.data.client_id)
-          if client and client.server_capabilities.inlayHintProvider then
-            vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+          if client and client:supports_method("textDocument/inlayHint", args.buf) then
+            vim.lsp.inlay_hint.enable(true, { bufnr = args.buf, client_id = client.id })
           end
         end,
       })

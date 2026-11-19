@@ -1,1 +1,11 @@
 lazy-lock.json
+*.swp
+*.swo
+*~
+.netrwhist
+doc/tags
+.DS_Store
+Thumbs.db
+*.log
+.luarocks/
+Session.vim

@@ -15,6 +15,7 @@ return {
   {
     "shellRaining/hlchunk.nvim",
     event = { "BufReadPre", "BufNewFile" },
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
     opts = {
       chunk = {
         enable = true,
