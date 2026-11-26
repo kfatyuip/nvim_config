@@ -1,9 +1,9 @@
 local cmd = vim.api.nvim_create_user_command
 
 cmd("Config", function()
-  vim.fn.chdir(vim.fn.stdpath("config"))
+  vim.fn.chdir(vim.fn.stdpath("config"), "tabpage")
   vim.cmd("Doexrc")
-end, { desc = "Change pwd to neovim config directory" })
+end, { desc = "Change pwd(tabpage) to neovim config directory" })
 
 cmd("InlayHintToggle", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
